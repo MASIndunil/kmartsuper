@@ -277,12 +277,12 @@
                             <label class="control-label" for="workingPlace">Employee Working Place :</label>
                         </div>
                         <div class="col-md-8">
-                            <select id="workingPlace" th:field="*{workingPlace}" class="form-control" tabindex="20" required>
+                           <!-- <select id="workingPlace" th:field="*{workingPlace}" class="form-control" tabindex="20" required>
                                 <option value="">Please select</option>
                                 <option th:each="workingPlace : ${workingPlaces}"
                                         th:text="${workingPlace.name}"
                                         th:value="${workingPlace.id}"></option>
-                            </select>
+                            </select>-->
                         </div>
                     </div>
                     <!--Created by and created at-->
@@ -300,7 +300,7 @@
                                 <label class="control-label" for="createdAt">Created At :</label>
                             </div>
                             <div class="col-md-8">
-                                <input id="createdAt" th:text="${{createdAt}}" class="form-control" type="text" readonly/>
+                                <input id="createdAt" th:field="*{createdAt}" class="form-control" type="text" readonly/>
                             </div>
                         </div>
                     </div>
@@ -346,8 +346,14 @@
                     </div>
                     <!--Button-->
                     <div class="form-group col-md-12 col-sm-12 text-center flex-column ">
-                        <button class="btn btn-success" type="submit" tabindex="21">
-                            <i class="fa fa-save " style="font-size: 20px"></i>&nbsp; &nbsp;<span id="submit" th:text="${addStatus==true?'Save': 'Update'}"></span>
+                        <button class="btn btn-primary"  >
+                            <i class="fas fa-arrow-circle-left" style="font-size: 20px"></i>&nbsp;&nbsp;Back
+                        </button>
+                        <button class="btn btn-success ml-5" type="submit" tabindex="21">
+                            <i class="fa fa-save " style="font-size: 20px"></i>&nbsp;&nbsp;<span id="submit" th:text="${addStatus==true?'Save': 'Update'}"></span>
+                        </button>
+                        <button class="btn btn-warning ml-5" type="reset" tabindex="21">
+                            <i class="far fa-times-circle" style="font-size: 20px"></i>&nbsp;&nbsp;Cancel
                         </button>
                     </div>
                 </div>
