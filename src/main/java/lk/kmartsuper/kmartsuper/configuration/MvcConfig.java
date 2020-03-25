@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
+import org.thymeleaf.dialect.IDialect;
+import org.thymeleaf.extras.java8time.dialect.Java8TimeDialect;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 
 import javax.annotation.PostConstruct;
@@ -69,6 +71,10 @@ public class MvcConfig implements WebMvcConfigurer {
         return jacksonObjectMapperBuilder -> jacksonObjectMapperBuilder.timeZone(TimeZone.getTimeZone("Asia/Colombo"));
     }
 
+    @Bean
+    public IDialect conditionalCommentDialect() {
+        return new Java8TimeDialect();
+    }
     //to enable Cache in spring boot
     @Bean
     public CacheManager cacheManager() {

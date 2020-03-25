@@ -1,8 +1,13 @@
 package lk.kmartsuper.kmartsuper.asset.employee.controller;
 
+import lk.kmartsuper.kmartsuper.asset.commonAsset.model.Enum.BloodGroup;
+import lk.kmartsuper.kmartsuper.asset.commonAsset.model.Enum.CivilStatus;
+import lk.kmartsuper.kmartsuper.asset.commonAsset.model.Enum.Gender;
+import lk.kmartsuper.kmartsuper.asset.commonAsset.model.Enum.Title;
 import lk.kmartsuper.kmartsuper.asset.commonAsset.service.CommonService;
 import lk.kmartsuper.kmartsuper.asset.employee.entity.Employee;
 import lk.kmartsuper.kmartsuper.asset.employee.entity.EmployeeFiles;
+import lk.kmartsuper.kmartsuper.asset.employee.entity.Enum.Designation;
 import lk.kmartsuper.kmartsuper.asset.employee.entity.Enum.EmployeeStatus;
 import lk.kmartsuper.kmartsuper.asset.employee.service.EmployeeFilesService;
 import lk.kmartsuper.kmartsuper.asset.employee.service.EmployeeService;
@@ -49,7 +54,12 @@ public class EmployeeController {
 
     // Common things for an employee add and update
     private String commonThings(Model model) {
-        commonService.commonEmployeeAndOffender(model);
+        model.addAttribute("title", Title.values());
+        model.addAttribute("gender", Gender.values());
+        model.addAttribute("civilStatus", CivilStatus.values());
+        model.addAttribute("employeeStatus", EmployeeStatus.values());
+        model.addAttribute("designation", Designation.values());
+        model.addAttribute("bloodGroup", BloodGroup.values());
         return "employee/addEmployee";
     }
 

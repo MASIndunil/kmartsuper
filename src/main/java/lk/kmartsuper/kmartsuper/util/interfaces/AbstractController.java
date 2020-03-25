@@ -1,6 +1,9 @@
 package lk.kmartsuper.kmartsuper.util.interfaces;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -13,15 +16,15 @@ public interface AbstractController<E, I> {
     //5. delete method create.
     //6. view details.
 
-    String findAll();
+    String findAll(Model model);
 
-    String addForm(I id);
+    String addForm(Model model);
 
-    String persist(E e);
+    String persist(E e, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model);
 
-    String edit(I id);
+    String edit(I id, Model model);
 
-    String delete(I id);
+    String delete(I id, Model model);
 
-    String view(I id);
+    String view(I id, Model model);
 }
