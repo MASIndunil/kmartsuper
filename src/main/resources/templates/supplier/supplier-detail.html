@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments/header :: headerFragment}">
     <meta charset="UTF-8">
-    <title>Thymeleaf Springboot </title>
+    <title>supplier-detail</title>
 </head>
 <body>
 <nav th:replace="~{fragments/navBar :: navBarFragment}"></nav>
@@ -18,7 +18,7 @@
         <div class="col">
             <h4 class="text-light text-center">
                 <strong>
-                    <p th:text="${customerDetail.title.title} +${' '} +${customerDetail.name}"></p>
+                    <p th:text="${supplierDetail.name}"></p>
                 </strong>
             </h4>
         </div>
@@ -30,7 +30,7 @@
     </div>
 </div>
 <!--details-->
-<div th:fragment="customerDetailsFragment" class="container-fluid bg-dark formBorder">
+<div th:fragment="supplierDetailsFragment" class="container-fluid bg-dark formBorder">
     <div class="col-sm-12 flex-column ">
         <div class="row">
             <!--Left Side-->
@@ -41,7 +41,7 @@
                         <label class="control-label" for="id">ID :</label>
                     </div>
                     <div class="col-md-8">
-                        <p id="id" th:text="${customerDetail.id}" class="display_detail"></p>
+                        <p id="id" th:text="${supplierDetail.id}" class="display_detail"></p>
                     </div>
                 </div>
                 <!--Code-->
@@ -50,7 +50,7 @@
                         <label class="control-label" for="departmentIdNumber">Depart Id No :</label>
                     </div>
                     <div class="col-md-8">
-                        <p id="departmentIdNumber" th:text="${customerDetail.departmentIdNumber}" class="display_detail"></p></div>
+                        <p id="departmentIdNumber" th:text="${supplierDetail.departmentIdNumber}" class="display_detail"></p></div>
                 </div>-->
                 <!--Name-->
                 <div class="form-row text-right">
@@ -58,56 +58,65 @@
                         <label class="control-label" for="name">Name :</label>
                     </div>
                     <div class="col-md-8">
-                        <p id="name" th:text="${customerDetail.title.title} +${' '} +${customerDetail.name}"
+                        <p id="name" th:text="${supplierDetail.name}"
                            class="display_detail"></p>
                     </div>
                 </div>
-                <!--NIC-->
+                <!--BRN-->
                 <div class="form-row text-right">
                     <div class="col-md-4">
-                        <label class="control-label" for="nic">NIC No :</label>
+                        <label class="control-label" for="brn">BRN :</label>
                     </div>
                     <div class="col-md-8">
-                        <p id="nic" th:text="${customerDetail.nic}" class="display_detail"></p>
+                        <p id="brn" th:text="${supplierDetail.brn}" class="display_detail"></p>
+                    </div>
+                </div>
+                <!--Contact One-->
+                <div class="form-row text-right">
+                    <div class="col-md-4">
+                        <label class="control-label" for="contactOne">Contact No1 :</label>
+                    </div>
+                    <div class="col-md-8">
+                        <p id="contactOne" th:text="${supplierDetail.contactOne}" class="display_detail"></p>
+                    </div>
+                </div>
+                <!--Contact Two-->
+                <div class="form-row text-right">
+                    <div class="col-md-4">
+                        <label class="control-label" for="contactTwo">Contact No2 :</label>
+                    </div>
+                    <div class="col-md-8">
+                        <p id="contactTwo" th:text="${supplierDetail.contactTwo}" class="display_detail"></p>
                     </div>
                 </div>
             </div>
             <!--Right Side-->
             <div class="form-group col-md-6 col-sm-6 text-right flex-column">
+                <!--Email-->
+                <div class="form-row text-right">
+                    <div class="col-md-4">
+                        <label class="control-label" for="email">Email :</label>
+                    </div>
+                    <div class="col-md-8">
+                        <p id="email" th:text="${supplierDetail.email}" class="display_detail"></p>
+                    </div>
+                </div>
                 <!--Address-->
                 <div class="form-row text-right">
                     <div class="col-md-4">
                         <label class="control-label" for="address">Address :</label>
                     </div>
                     <div class="col-md-8 text-left">
-                        <p id="address" class="display_detail " th:utext="${customerDetail.address}"></p>
+                        <p id="address" class="display_detail " th:utext="${supplierDetail.address}"></p>
                     </div>
                 </div>
-                <!--Mobile-->
-                <div class="form-row text-right">
-                    <div class="col-md-4">
-                        <label class="control-label" for="mobile">Mobile No :</label>
-                    </div>
-                    <div class="col-md-8">
-                        <p id="mobile" th:text="${customerDetail.mobile}" class="display_detail"></p>
-                    </div>
-                </div>
-                <!--Email-->
-                <!--<div class="form-row text-right">
-                    <div class="col-md-4">
-                        <label class="control-label" for="email">Email :</label>
-                    </div>
-                    <div class="col-md-8">
-                        <p id="email" th:text="${customerDetail.email}" class="display_detail"></p>
-                    </div>
-                </div>-->
                 <!--Created By-->
                 <div class="form-row text-right">
                     <div class="col-md-4">
                         <label class="control-label" for="createdBy">Created By :</label>
                     </div>
                     <div class="col-md-8">
-                        <p id="createdBy" th:text="${customerDetail.createdBy}" class="display_detail"></p>
+                        <p id="createdBy" th:text="${supplierDetail.createdBy}" class="display_detail"></p>
                     </div>
                 </div>
                 <!--Created at-->
@@ -116,7 +125,7 @@
                         <label class="control-label" for="createdAt">Created At :</label>
                     </div>
                     <div class="col-md-8">
-                        <p id="createdAt" th:text="${#temporals.format(customerDetail.createdAt, 'dd-MM-yyyy HH:mm')}"
+                        <p id="createdAt" th:text="${#temporals.format(supplierDetail.createdAt, 'dd-MM-yyyy HH:mm')}"
                            class="display_detail"></p>
                     </div>
                 </div>
@@ -126,7 +135,7 @@
                         <label class="control-label" for="updatedBy">Updated By :</label>
                     </div>
                     <div class="col-md-8">
-                        <p id="updatedBy" th:text="${customerDetail.updatedBy}" class="display_detail"></p>
+                        <p id="updatedBy" th:text="${supplierDetail.updatedBy}" class="display_detail"></p>
                     </div>
                 </div>
                 <!--Updated at-->
@@ -135,12 +144,13 @@
                         <label class="control-label" for="updatedAt">Updated At :</label>
                     </div>
                     <div class="col-md-8">
-                        <p id="updatedAt" th:text="${{customerDetail.updatedAt}}" class="display_detail"></p>
+                        <p id="updatedAt" th:text="${{supplierDetail.updatedAt}}" class="display_detail"></p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <!--Back Button-->
     <div class="form-group col-md-12 col-sm-12 text-center flex-column ">
         <a href="/supplier">
             <button class="btn btn-success" type="button" tabindex="10">

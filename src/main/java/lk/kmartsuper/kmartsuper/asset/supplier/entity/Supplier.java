@@ -1,4 +1,4 @@
-package lk.kmartsuper.kmartsuper.asset.customer.entity;
+package lk.kmartsuper.kmartsuper.asset.supplier.entity;
 
 import com.fasterxml.jackson.annotation.JsonFilter;
 import lk.kmartsuper.kmartsuper.asset.commonAsset.model.Enum.Gender;
@@ -20,22 +20,24 @@ import javax.validation.constraints.Size;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonFilter( "Customer" )
-public class Customer extends AuditEntity {
+@JsonFilter( "Supplier" )
+public class Supplier extends AuditEntity {
 
-    @Enumerated( EnumType.STRING )
-    private Title title;
-
-    @Size( min = 5, message = "Your name cannot be accepted" )
+    @Size( min = 5, message = "Your Company name cannot be accepted" )
     private String name;
 
-    @Size( max = 12, min = 10, message = "NIC number is contained numbers between 9 and X/V or 12 " )
-    @Column( unique = true )
-    private String nic;
+    @Size( min = 2, message = "Your BRN cannot be accepted" )
+    private String brn;
 
     @Size( max = 10, min = 9, message = "Mobile number length should be contained 10 and 9" )
-    private String mobile;
+    private String contactOne;
+
+    private String contactTwo;
+
+    @Column( unique = true )
+    private String email;
 
     @Column( columnDefinition = "VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_bin NULL", length = 255 )
     private String address;
+
 }
