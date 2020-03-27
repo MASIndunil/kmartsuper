@@ -1,7 +1,7 @@
-package lk.kmartsuper.kmartsuper.asset.category.service;
+package lk.kmartsuper.kmartsuper.asset.item.category.service;
 
-import lk.kmartsuper.kmartsuper.asset.category.dao.CategoryDao;
-import lk.kmartsuper.kmartsuper.asset.category.entity.Category;
+import lk.kmartsuper.kmartsuper.asset.item.category.dao.CategoryDao;
+import lk.kmartsuper.kmartsuper.asset.item.category.entity.Category;
 import lk.kmartsuper.kmartsuper.util.interfaces.AbstractService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;

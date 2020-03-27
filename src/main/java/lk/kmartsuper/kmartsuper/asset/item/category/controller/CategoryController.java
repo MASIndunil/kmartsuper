@@ -1,9 +1,8 @@
-package lk.kmartsuper.kmartsuper.asset.category.controller;
+package lk.kmartsuper.kmartsuper.asset.item.category.controller;
 
 
-import lk.kmartsuper.kmartsuper.asset.commonAsset.model.Enum.Title;
-import lk.kmartsuper.kmartsuper.asset.category.entity.Category;
-import lk.kmartsuper.kmartsuper.asset.category.service.CategoryService;
+import lk.kmartsuper.kmartsuper.asset.item.category.entity.Category;
+import lk.kmartsuper.kmartsuper.asset.item.category.service.CategoryService;
 import lk.kmartsuper.kmartsuper.util.interfaces.AbstractController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

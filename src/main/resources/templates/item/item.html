@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: headerFragment}">
+    <meta charset="UTF-8">
+    <title>item</title>
+</head>
+<body>
+<nav th:replace="~{fragments/navBar :: navBarFragment}"></nav>
+
+<!--heading Area-->
+<div class="container-fluid bg-secondary form-Border">
+    <div class="row text-center formManagement border-info">
+        <div class="col">
+            <a class="btn btn-success" href="/item/add"><i class="fa fa-user-plus"></i>New Item</a>&nbsp;
+        </div>
+        <div class="col">
+            <h4 class="text-info text-center">
+                <strong>
+                    Item Management
+                </strong>
+            </h4>
+        </div>
+        <div class="col">
+            <a href="/item/workingPlace" id="searchShow" class="btn btn-primary">
+                <i class="fa fa-user " style="font-size: 20px"></i>&nbsp;Add&nbsp;
+                <i class="fas fa-store-alt" style="font-size: 20px"></i>
+                &nbsp;
+            </a>
+        </div>
+    </div>
+</div>
+<div class="container-fluid bg-dark formBorder text-center">
+    <!--Table view-->
+    <div class="col">
+        <div class="col" id="itemListPresent" th:if="${not #lists.isEmpty(items)}">
+            <table class="table table-hover table-striped" id="myTable">
+                <thead>
+                    <tr>
+                        <th> Index</th>
+                        <th> Status</th>
+                        <th> Category</th>
+                        <!--<th> SubCategory</th>-->
+                        <th> Name</th>
+                        <th> Price</th>
+                        <th> ROP</th>
+                        <th> Batch</th>
+                        <th> MDate</th>
+                        <th> EDate</th>
+                        <th> Modify</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="item, rowCount : ${items}">
+                        <th th:text="${rowCount.count}"></th>
+                        <th th:text="${item.status}"></th>
+                        <th th:text="${item.category}"></th>
+                    <!--<th th:text="${item.subCategory}"></th>-->
+                        <th th:text="${item.name}"></th>
+                        <th th:text="${item.price}"></th>
+                        <th th:text="${item.rop}"></th>
+                        <th th:text="${item.batch}"></th>
+                        <th th:text="${item.mDate}"></th>
+                        <th th:text="${item.eDate}"></th>
+                        <th>
+                            <a id="itemView" th:href="${'/item/' + item.id}" class="btn btn-success btn-sm"><i class="fa fa-folder-open"></i>&nbsp;View</a>
+                            <a id="itemEdit" th:href="${'/item/edit/' + item.id}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i>&nbsp;Edit</a>
+                            <a id="itemRemove" th:href="${'/item/remove/' + item.id}" th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> Delete</a>
+                        </th>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!--Error-->
+    <div class="row" th:if="${ #lists.isEmpty(items)}">
+        <div class="col-sm-12">
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h3 class="text-center text-danger">
+                    <strong>There is no item upto now please add item to the system using New Item button.</strong>
+                </h3>
+            </div>
+        </div>
+        <script>
+            /*active boostrap alert - start*/
+            $(".alert").alert();
+            /*active boostrap alert - end*/
+        </script>
+    </div>
+</div>
+
+<!--footer include-->
+<footer th:replace="~{fragments/footer :: footerFragment}"></footer>
+<!--script include-->
+<script th:replace="~{fragments/script :: scriptFragment}"></script>
+
+</body>
+</html>

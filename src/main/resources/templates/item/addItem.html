@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: headerFragment}">
+    <meta charset="UTF-8">
+    <title>addItem</title>
+</head>
+<body>
+<nav th:replace="~{fragments/navBar :: navBarFragment}"></nav>
+
+<!--heading Area-->
+<div class="container-fluid bg-secondary form-Border">
+    <div class="row text-center formManagement border-info">
+        <div class="col">
+            <a class="btn btn-primary" href="/home">
+                <i class="fa fa-home" style="font-size: 20px"></i> &nbsp; Home
+            </a>
+        </div>
+        <div class="col">
+            <h4 class="text-light text-center">
+                <strong>
+                    <span th:text="${addStatus==true?'New Item Add':'Update Item Details'}"></span>
+                </strong>
+            </h4>
+        </div>
+        <div class="col">
+            <a href="/item" class="btn btn-primary">
+                <i class="fa fa-list"></i>&nbsp; View List
+            </a>
+        </div>
+    </div>
+</div>
+<!--Form Content - start -->
+<div class="container-fluid bg-dark formBorder">
+    <div class="col-sm-12 flex-column ">
+        <form id="form" class="form-horizontal" th:action="${addStatus==true?'/item/add':'/item/update'}"
+              th:object="${item}" method="POST" enctype="multipart/form-data">
+            <div class="row">
+                <!--Left Side-->
+                <div class="form-group col-md-6 col-sm-6 text-left flex-column">
+                    <!--Id-->
+                    <div id="idStatus" th:if="${addStatus==false}" class="form-row text-right">
+                        <div class="col-md-4">
+                            <label class="control-label" for="id">ID :</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input id="id" th:field="*{id}" class="form-control" type="text" readonly/>
+                        </div>
+                    </div>
+                    <!--Status -->
+                    <div class="form-row text-right">
+                        <div class="col-md-4">
+                            <label class="control-label" for="status">Status :</label>
+                        </div>
+                        <div class="col-md-8">
+                            <select id="status" th:field="*{status}" class="form-control" tabindex="3" style="font-size: large" required>
+                                <option value="">Please select</option>
+                                <option th:each="statuses : ${status}"
+                                        th:text="${statuses.status}"
+                                        th:value="${statuses}"
+                                        th:selected="${statuses==item.status?'selected':'unselected'}"></option>
+                            </select>
+                        </div>
+                    </div>
+                    <!--Category -->
+                    <div class="form-row text-right">
+                        <div class="col-md-4">
+                            <label class="control-label" for="category">Category :</label>
+                        </div>
+                        <div class="col-md-8">
+                            <select id="category" th:field="*{category}" class="form-control" tabindex="3" style="font-size: large" required>
+                                <option value="">Please select</option>
+                                <option th:each="categories : ${category}"
+                                        th:text="${categories.category}"
+                                        th:value="${categories}"
+                                        th:selected="${categories==item.category?'selected':'unselected'}"></option>
+                            </select>
+                        </div>
+                    </div>
+                    <!--SubCategory -->
+                    <!--<div class="form-row text-right">
+                        <div class="col-md-4">
+                            <label class="control-label" for="subCategory">SubCategory :</label>
+                        </div>
+                        <div class="col-md-8">
+                            <select id="subCategory" th:field="*{subCategory}" class="form-control" tabindex="3" style="font-size: large" required>
+                                <option value="">Please select</option>
+                                <option th:each="subCategories : ${subCategory}"
+                                        th:text="${subCategories.subCategory}"
+                                        th:value="${subCategories}"
+                                        th:selected="${subCategories==item.subCategory?'selected':'unselected'}"></option>
+                            </select>
+                        </div>
+                    </div>-->
+                    <!--Name-->
+                    <div class="form-row text-right">
+                        <div class="col-md-4">
+                            <label class="control-label" for="iName">Name :</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input id="iName" th:field="*{name}" class="form-control" tabindex="4" type="text" required/>
+                            <span id="nameError" th:errors="*{name}"
+                                  th:if="${#fields.hasErrors('name')}" class="error">Error Name</span>
+                        </div>
+                    </div>
+                    <!--Price-->
+                    <div class="form-row text-right">
+                        <div class="col-md-4">
+                            <label class="control-label" for="price">Price(Rs.) :</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input id="price" th:field="*{price}" class="form-control" tabindex="4" type="number" step="0.01" required/>
+                            <span id="priceError" th:errors="*{price}"
+                                  th:if="${#fields.hasErrors('price')}" class="error">Error Price</span>
+                        </div>
+                    </div>
+                    <!--ReOrder Point-->
+                    <div class="form-row text-right">
+                        <div class="col-md-4">
+                            <label class="control-label" for="rop">Reorder Point :</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input id="rop" th:field="*{rop}" class="form-control" tabindex="4" type="number" required/>
+                            <span id="nameError" th:errors="*{rop}"
+                                  th:if="${#fields.hasErrors('rop')}" class="error">Error ROP</span>
+                        </div>
+                    </div>
+                </div>
+                <!--Right Side-->
+                <div class="form-group col-md-6 col-sm-6 text-right flex-column">
+                    <!--Batch-->
+                    <div class="form-row text-right">
+                        <div class="col-md-4">
+                            <label class="control-label" for="batch">Batch :</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input id="batch" th:field="*{batch}" class="form-control" tabindex="13" type="text" maxlength="10" min="9" required/>
+                            <span id="batchError" th:errors="*{batch}"
+                                  th:if="${#fields.hasErrors('batch')}" class="error">Error Batch</span>
+                        </div>
+                    </div>
+                    <!--Manufactured Date-->
+                    <div class="form-row text-right">
+                        <div class="col-md-4">
+                            <label class="control-label" for="mDate">Manufactured Date :</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input id="mDate" th:field="*{mDate}" class="form-control" tabindex="4" type="date" required/>
+                            <span id="nameError" th:errors="*{mDate}"
+                                  th:if="${#fields.hasErrors('mDate')}" class="error">Error Date</span>
+                        </div>
+                    </div>
+                    <!--Expiration Date-->
+                    <div class="form-row text-right">
+                        <div class="col-md-4">
+                            <label class="control-label" for="eDate">Expiration Date :</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input id="eDate" th:field="*{eDate}" class="form-control" tabindex="4" type="date" required/>
+                            <span id="nameError" th:errors="*{eDate}"
+                                  th:if="${#fields.hasErrors('eDate')}" class="error">Error Date</span>
+                        </div>
+                    </div>
+                    <!--Created by and created at-->
+                    <div id="updateStatus" th:if="${addStatus==false}">
+                        <!--Created by-->
+                        <div class="form-row text-right">
+                            <div class="col-md-4">
+                                <label class="control-label" for="createdBy">Created By :</label>
+                            </div>
+                            <div class="col-md-8">
+                                <input id="createdBy" th:field="*{createdBy}" class="form-control" type="text" readonly/>
+                            </div>
+                        </div>
+                        <!--Created at-->
+                        <div class="form-row text-right">
+                            <div class="col-md-4">
+                                <label class="control-label" for="createdAt">Created At :</label>
+                            </div>
+                            <div class="col-md-8">
+                                <input id="createdAt" th:field="*{createdAt}" class="form-control" type="text" readonly/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--Button-->
+                <div class="form-group col-md-12 col-sm-12 text-center flex-column ">
+                    <button class="btn btn-primary"  >
+                        <i class="fas fa-arrow-circle-left" style="font-size: 20px"></i>&nbsp;&nbsp;Back
+                    </button>
+                    <button class="btn btn-success ml-5" type="submit" tabindex="21">
+                        <i class="fa fa-save " style="font-size: 20px"></i>&nbsp;&nbsp;<span id="submit" th:text="${addStatus==true?'Save': 'Update'}"></span>
+                    </button>
+                    <button class="btn btn-warning ml-5" type="reset" tabindex="21">
+                        <i class="far fa-times-circle" style="font-size: 20px"></i>&nbsp;&nbsp;Cancel
+                    </button>
+                </div>
+                <!--Error-->
+                <div class="form-row">
+                    <label id="errorLabel" th:if="${#fields.hasErrors('*')}" th:text="'Errors: '">Errors: </label>
+                    <ul>
+                        <li id="error" th:each="err: ${#fields.errors('*')}" th:text="${err}" class="error"></li>
+                    </ul>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<!--footer include-->
+<footer th:replace="~{fragments/footer :: footerFragment}"></footer>
+<!--script include-->
+<script th:replace="~{fragments/script :: scriptFragment}"></script>
+
+</body>
+</html>
