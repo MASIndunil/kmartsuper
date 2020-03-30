@@ -2,29 +2,32 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments/header :: headerFragment}">
     <meta charset="UTF-8">
-    <title>Thymeleaf Springboot </title>
+    <title>customer-detail</title>
 </head>
 <body>
 <nav th:replace="~{fragments/navBar :: navBarFragment}"></nav>
 
 <!--heading Area-->
-<div class="container-fluid bg-secondary form-Border">
+<div class="container-fluid bg-dark form-Border">
     <div class="row text-center formManagement border-info">
+        <!--ViewList Button-->
         <div class="col">
-            <a class="btn btn-primary" href="/home">
-                <i class="fa fa-home" style="font-size: 20px"></i> &nbsp; Home
+            <a href="/customer" class="btn btn-primary" tabindex="1">
+                <i class="fa fa-list" style="font-size: 20px"></i>&nbsp;&nbsp;View List
             </a>
         </div>
+        <!--Customer Name-->
         <div class="col">
-            <h4 class="text-light text-center">
+            <h2 class="text-light text-center">
                 <strong>
                     <p th:text="${customerDetail.title.title} +${' '} +${customerDetail.name}"></p>
                 </strong>
-            </h4>
+            </h2>
         </div>
+        <!--Home Button-->
         <div class="col">
-            <a href="/supplier" class="btn btn-primary">
-                <i class="fa fa-list"></i>&nbsp; View List
+            <a class="btn btn-primary" href="/home" tabindex="2">
+                <i class="fa fa-home" style="font-size: 20px"></i> &nbsp;&nbsp;Home
             </a>
         </div>
     </div>
@@ -71,9 +74,6 @@
                         <p id="nic" th:text="${customerDetail.nic}" class="display_detail"></p>
                     </div>
                 </div>
-            </div>
-            <!--Right Side-->
-            <div class="form-group col-md-6 col-sm-6 text-right flex-column">
                 <!--Address-->
                 <div class="form-row text-right">
                     <div class="col-md-4">
@@ -92,6 +92,10 @@
                         <p id="mobile" th:text="${customerDetail.mobile}" class="display_detail"></p>
                     </div>
                 </div>
+            </div>
+            <!--Right Side-->
+            <div class="form-group col-md-6 col-sm-6 text-right flex-column">
+
                 <!--Email-->
                 <!--<div class="form-row text-right">
                     <div class="col-md-4">
@@ -139,16 +143,16 @@
                     </div>
                 </div>
             </div>
+            <!--Back Button-->
+            <div class="form-group col-md-12 col-sm-12 text-center flex-column ">
+                <a href="/customer">
+                    <button class="btn btn-dark" type="button" tabindex="3">
+                        <i class="fas fa-arrow-circle-left" style="font-size: 20px"></i>&nbsp; &nbsp;Back
+                    </button>
+                </a>
+            </div>
         </div>
     </div>
-    <div class="form-group col-md-12 col-sm-12 text-center flex-column ">
-        <a href="/supplier">
-            <button class="btn btn-success" type="button" tabindex="10">
-                <i class="fa fa-backward " style="font-size: 20px"></i>&nbsp; &nbsp;Back
-            </button>
-        </a>
-    </div>
-    <br/>
 </div>
 
 <!--footer include-->

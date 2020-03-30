@@ -42,7 +42,7 @@ public class SupplierController implements AbstractController<Supplier, Integer>
         return commonThings(model, new Supplier(), true);
     }
 
-    @PostMapping( value = {"/add", "/update"} )
+    @PostMapping( value = {"/save", "/update"} )
     public String persist(Supplier supplier, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
         if ( bindingResult.hasErrors() ) {
             return commonThings(model, supplier, true);

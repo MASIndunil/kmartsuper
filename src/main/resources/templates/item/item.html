@@ -8,22 +8,25 @@
 <nav th:replace="~{fragments/navBar :: navBarFragment}"></nav>
 
 <!--heading Area-->
-<div class="container-fluid bg-secondary form-Border">
+<div class="container-fluid bg-dark form-Border">
     <div class="row text-center formManagement border-info">
+        <!-- New Item Button-->
         <div class="col">
-            <a class="btn btn-success" href="/item/add"><i class="fa fa-user-plus"></i>New Item</a>&nbsp;
+            <a class="btn btn-success" href="/item/add" tabindex="1"><i class="fas fa-plus" style="font-size: 20px"></i>&nbsp;&nbsp;New</a>&nbsp;
         </div>
+        <!-- List Name-->
         <div class="col">
-            <h4 class="text-info text-center">
+            <h2 class="text-white text-center">
                 <strong>
-                    Item Management
+                    Item List
                 </strong>
-            </h4>
+            </h2>
         </div>
+        <!-- Home Button-->
         <div class="col">
-            <a href="/item/workingPlace" id="searchShow" class="btn btn-primary">
-                <i class="fa fa-user " style="font-size: 20px"></i>&nbsp;Add&nbsp;
-                <i class="fas fa-store-alt" style="font-size: 20px"></i>
+            <a href="/home" id="searchShow" class="btn btn-primary" tabindex="2">
+                <!--<i class="fa fa-user " style="font-size: 20px"></i>&nbsp;Add&nbsp;-->
+                <i class="fas fa-home" style="font-size: 20px"></i>&nbsp;&nbsp;Home
                 &nbsp;
             </a>
         </div>
@@ -62,9 +65,10 @@
                         <th th:text="${item.mDate}"></th>
                         <th th:text="${item.eDate}"></th>
                         <th>
-                            <a id="itemView" th:href="${'/item/' + item.id}" class="btn btn-success btn-sm"><i class="fa fa-folder-open"></i>&nbsp;View</a>
-                            <a id="itemEdit" th:href="${'/item/edit/' + item.id}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i>&nbsp;Edit</a>
-                            <a id="itemRemove" th:href="${'/item/remove/' + item.id}" th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> Delete</a>
+                            <a id="itemView" th:href="${'/item/' + item.id}" class="btn btn-primary btn-sm"><i class="fa fa-folder-open" style="font-size: 15px"></i>&nbsp;View</a>
+                            <a id="itemEdit" th:href="${'/item/edit/' + item.id}" class="btn btn-success btn-sm"><i class="fa fa-edit" style="font-size: 15px"></i>&nbsp;Edit</a>
+                            <a id="itemRemove" th:href="${'/item/delete/' + item.id}" class="btn btn-danger btn-sm">
+                                <!--th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}"--><i class="fa fa-trash" style="font-size: 15px"></i> Delete</a>
                         </th>
                     </tr>
                 </tbody>
@@ -79,7 +83,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <h3 class="text-center text-danger">
-                    <strong>There is no item upto now please add item to the system using New Item button.</strong>
+                    <strong>There is no item upto now please add item to the system using "New" button.</strong>
                 </h3>
             </div>
         </div>

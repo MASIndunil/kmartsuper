@@ -45,7 +45,7 @@ public class ItemController implements AbstractController<Item, Integer> {
         return commonThings(model, new Item(), true);
     }
 
-    @PostMapping( value = {"/add", "/update"} )
+    @PostMapping( value = {"/save", "/update"} )
     public String persist(Item item, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
         if ( bindingResult.hasErrors() ) {
             return commonThings(model, item, true);

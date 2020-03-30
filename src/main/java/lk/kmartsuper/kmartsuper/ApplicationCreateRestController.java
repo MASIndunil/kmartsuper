@@ -51,7 +51,7 @@ public class ApplicationCreateRestController {
         employee.setCallingName("Admin");
         employee.setName("908670000V");
         employee.setMobileOne("0750000000");
-        employee.setTitle(Title.DR);
+        employee.setTitle(Title.Dr);
         employee.setGender(Gender.MALE);
         employee.setBloodGroup(BloodGroup.AP);
         employee.setDesignation(Designation.ED);

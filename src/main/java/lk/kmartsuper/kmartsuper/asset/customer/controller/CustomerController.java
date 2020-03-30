@@ -43,7 +43,7 @@ public class CustomerController implements AbstractController<Customer, Integer>
         return commonThings(model, new Customer(), true);
     }
 
-    @PostMapping( value = {"/add", "/update"} )
+    @PostMapping( value = {"/save", "/update"} )
     public String persist(Customer customer, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
         if ( bindingResult.hasErrors() ) {
             return commonThings(model, customer, true);

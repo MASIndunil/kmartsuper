@@ -2,36 +2,39 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments/header :: headerFragment}">
     <meta charset="UTF-8">
-    <title>Thymeleaf Springboot </title>
+    <title>addCustomer</title>
 </head>
 <body>
 <nav th:replace="~{fragments/navBar :: navBarFragment}"></nav>
-
-<div class="container-fluid bg-secondary form-Border">
+<!--Heading Area-->
+<div class="container-fluid bg-dark form-Border">
     <div class="row text-center formManagement border-info">
+        <!--ViewList Button-->
         <div class="col">
-            <a class="btn btn-primary" href="/home">
-                <i class="fa fa-home" style="font-size: 20px"></i> &nbsp; Home
+            <a href="/customer" class="btn btn-primary" tabindex="1">
+                <i class="fa fa-list" style="font-size: 20px"></i>&nbsp;&nbsp;View List
             </a>
         </div>
+        <!--Form Name-->
         <div class="col">
-            <h4 class="text-light text-center">
+            <h2 class="text-light text-center">
                 <strong>
-                    <span th:text="${addStatus==true?'New Customer Add':'Update Customer Details'}"></span>
+                    <span th:text="${addStatus==true?'Add New Customer':'Update Customer Details'}"></span>
                 </strong>
-            </h4>
+            </h2>
         </div>
+        <!--Home Button-->
         <div class="col">
-            <a href="/customer" class="btn btn-primary">
-                <i class="fa fa-list"></i>&nbsp; View List
+            <a class="btn btn-primary" href="/home" tabindex="2">
+                <i class="fa fa-home" style="font-size: 20px"></i> &nbsp;&nbsp;Home
             </a>
         </div>
     </div>
 </div>
-<!--Form Content - start -->
+<!--Form Content-->
 <div class="container-fluid bg-dark formBorder">
     <div class="col-sm-12 flex-column ">
-        <form id="form" class="form-horizontal" th:action="${addStatus==true?'/customer/add':'/customer/update'}"
+        <form id="form" class="form-horizontal" th:action="${addStatus==true?'/customer/save':'/customer/update'}"
               th:object="${customer}" method="POST" enctype="multipart/form-data">
             <div class="row">
                 <!--Left Side-->
@@ -77,7 +80,7 @@
                             <label class="control-label" for="nic">NIC No :</label>
                         </div>
                         <div class="col-md-8">
-                            <input id="nic" th:field="*{nic}" class="form-control" tabindex="6" type="text" minlength="10" maxlength="12"/>
+                            <input id="nic" th:field="*{nic}" class="form-control" tabindex="5" type="text" minlength="10" maxlength="12"/>
                             <span class="error" id="nicError" th:errors="*{nic}"
                                   th:if="${#fields.hasErrors('nic')}">Error
                                                                NIC Number</span>
@@ -92,7 +95,7 @@
                             <label class="control-label" for="mobile">Mobile No :</label>
                         </div>
                         <div class="col-md-8">
-                            <input id="mobile" th:field="*{mobile}" class="form-control mobile" tabindex="13" type="text" maxlength="10" min="9" required/>
+                            <input id="mobile" th:field="*{mobile}" class="form-control mobile" tabindex="6" type="text" maxlength="10" min="9" required/>
                             <span class="error" th:errors="*{mobile}"
                                   th:if="${#fields.hasErrors('mobile')}" id="mobileError">Error Mobile Number</span>
                         </div>
@@ -103,13 +106,14 @@
                             <label class="control-label" for="address">Address :</label>
                         </div>
                         <div class="col-md-8">
-                            <textarea id="address" th:field="*{address}" class="form-control" tabindex="12" rows="4" style="font-size: medium"></textarea>
+                            <textarea id="address" th:field="*{address}" class="form-control" tabindex="7" rows="4" style="font-size: medium"></textarea>
                             <span class="error" th:errors="*{address}"
                                   th:if="${#fields.hasErrors('address')}" id="addressError">Error Address</span>
                         </div>
                     </div>
                     <!--Created by and created at-->
                     <div id="updateStatus" th:if="${addStatus==false}">
+                        <!--Created By-->
                         <div class="form-row text-right">
                             <div class="col-md-4">
                                 <label class="control-label" for="createdBy">Created By :</label>
@@ -118,6 +122,7 @@
                                 <input id="createdBy" th:field="*{createdBy}" class="form-control" type="text" readonly/>
                             </div>
                         </div>
+                        <!--Created At-->
                         <div class="form-row text-right">
                             <div class="col-md-4">
                                 <label class="control-label" for="createdAt">Created At :</label>
@@ -130,13 +135,16 @@
                 </div>
                 <!--Button-->
                 <div class="form-group col-md-12 col-sm-12 text-center flex-column ">
-                    <button class="btn btn-primary"  >
+                    <!--Back Button-->
+                    <a class="btn btn-dark"  tabindex="10" href="/customer">
                         <i class="fas fa-arrow-circle-left" style="font-size: 20px"></i>&nbsp;&nbsp;Back
-                    </button>
-                    <button class="btn btn-success ml-5" type="submit" tabindex="21">
+                    </a>
+                    <!--Save Button-->
+                    <button class="btn btn-success ml-5" type="submit" tabindex="8">
                         <i class="fa fa-save " style="font-size: 20px"></i>&nbsp;&nbsp;<span id="submit" th:text="${addStatus==true?'Save': 'Update'}"></span>
                     </button>
-                    <button class="btn btn-warning ml-5" type="reset" tabindex="21">
+                    <!--Cancel Button-->
+                    <button class="btn btn-warning ml-5" type="reset" tabindex="9">
                         <i class="far fa-times-circle" style="font-size: 20px"></i>&nbsp;&nbsp;Cancel
                     </button>
                 </div>

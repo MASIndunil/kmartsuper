@@ -29,11 +29,12 @@ public class Customer extends AuditEntity {
     @Size( min = 5, message = "Your name cannot be accepted" )
     private String name;
 
-    @Size( max = 12, min = 10, message = "NIC number is contained numbers between 9 and X/V or 12 " )
+    @Size( max = 12, min = 10, message = "NIC number is formed by 9 numbers with X/V OR 12 numbers " )
     @Column( unique = true )
     private String nic;
 
     @Size( max = 10, min = 9, message = "Mobile number length should be contained 10 and 9" )
+    @Column( unique = true )
     private String mobile;
 
     @Column( columnDefinition = "VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_bin NULL", length = 255 )

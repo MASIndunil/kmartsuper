@@ -6,15 +6,12 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum Title {
-    MR("Mr. "),
-    MRS("Mrs. "),
-    MISS("Miss. "),
-    MS("Ms. "),
-    REV("Rev. "),
-    DR("Dr. "),
-    DRMRS("Dr(Mrs). "),
-    PRO("Prof. "),
-    SISTER("Sister. ");
+    Mr("Mr. "),
+    Mrs("Mrs. "),
+    Miss("Miss. "),
+    Rev("Rev. "),
+    Dr("Dr. "),
+    Sister("Sister. ");
 
     private final String title;
 }
