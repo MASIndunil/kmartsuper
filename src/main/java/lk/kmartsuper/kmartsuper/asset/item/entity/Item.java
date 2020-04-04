@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFilter;
 import lk.kmartsuper.kmartsuper.asset.commonAsset.model.Enum.Title;
 import lk.kmartsuper.kmartsuper.asset.item.entity.Enum.Category;
 import lk.kmartsuper.kmartsuper.asset.item.entity.Enum.Status;
+import lk.kmartsuper.kmartsuper.asset.purchaseRequest.entity.PurchaseRequestItem;
 import lk.kmartsuper.kmartsuper.util.audit.AuditEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,13 +12,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Getter
@@ -47,5 +47,8 @@ public class Item extends AuditEntity {
     private String batch;
 
     private Integer rop;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<PurchaseRequestItem> purchaseRequestItems;
 
 }
