@@ -1,22 +1,21 @@
 package lk.kmartsuper.kmartsuper.asset.item.entity;
 
 import com.fasterxml.jackson.annotation.JsonFilter;
-import lk.kmartsuper.kmartsuper.asset.commonAsset.model.Enum.Title;
-import lk.kmartsuper.kmartsuper.asset.item.entity.Enum.Category;
-import lk.kmartsuper.kmartsuper.asset.item.entity.Enum.Status;
-import lk.kmartsuper.kmartsuper.asset.purchaseRequest.entity.PurchaseRequestItem;
+import lk.kmartsuper.kmartsuper.asset.item.category.entity.Category;
+import lk.kmartsuper.kmartsuper.asset.ledger.entity.Ledger;
+import lk.kmartsuper.kmartsuper.asset.purchaseOrder.entity.PurchaseOrderItem;
+import lk.kmartsuper.kmartsuper.asset.supplier.entity.Supplier;
 import lk.kmartsuper.kmartsuper.util.audit.AuditEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.format.annotation.DateTimeFormat;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -24,31 +23,30 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonFilter( "Item" )
+@JsonFilter("Item")
 public class Item extends AuditEntity {
 
-    @Enumerated( EnumType.STRING )
-    private Category category;
-
-    @Enumerated( EnumType.STRING )
-    private Status status;
-
-    @Size( min = 5, message = "Your name cannot be accepted" )
+    @Size(min = 5, message = "Your name cannot be accepted")
     private String name;
-
-    private BigDecimal price;
-
-    @DateTimeFormat( pattern = "yyyy-MM-dd" )
-    private LocalDate mDate;
-
-    @DateTimeFormat( pattern = "yyyy-MM-dd" )
-    private LocalDate eDate;
-
-    private String batch;
 
     private Integer rop;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<PurchaseRequestItem> purchaseRequestItems;
+    @Column(precision = 10, scale = 2)
+    private BigDecimal price;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Category category;
+
+    @OneToMany(mappedBy = "item")
+    private List<PurchaseOrderItem> purchaseOrderItems;
+
+    @OneToMany(mappedBy = "item")
+    private List<Ledger> ledgers;
+
+    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @Fetch(FetchMode.SUBSELECT)
+    @JoinTable(name = "supplier_item",
+            joinColumns = @JoinColumn(name = "item_id"),
+            inverseJoinColumns = @JoinColumn(name = "supplier_id"))
+    private List<Supplier> suppliers;
 }

@@ -35,7 +35,7 @@
 <div class="container-fluid bg-dark formBorder text-center">
     <!--Supplier List Table-->
     <div class="col">
-        <div class="col" id="supplierListPresent" th:if="${not #lists.isEmpty(suppliers)}">
+        <div class="col" th:fragment="supplierFragment" id="supplierListPresent" th:if="${not #lists.isEmpty(suppliers)}">
             <table class="table table-hover table-striped" id="myTable">
                 <thead>
                     <tr>
@@ -54,11 +54,14 @@
                         <th th:text="${supplier.contactOne}"></th>
                         <th th:text="${supplier.email}"></th>
                         <th th:text="${supplier.address}"></th>
-                        <th>
+                        <th th:if="${supplierDetailShow !=true}">
                             <a id="supplierView" th:href="${'/supplier/' + supplier.id}" class="btn btn-primary btn-sm"><i class="fa fa-folder-open" style="font-size: 15px"></i>&nbsp;View</a>
                             <a id="supplierEdit" th:href="${'/supplier/edit/' + supplier.id}" class="btn btn-success btn-sm"><i class="fa fa-edit" style="font-size: 15px"></i>&nbsp;Edit</a>
                             <a id="supplierRemove" th:href="${'/supplier/delete/' + supplier.id}" class="btn btn-danger btn-sm">
                                 <!--th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}"--> <i class="fa fa-trash" style="font-size: 15px"></i> Delete</a>
+                        </th>
+                        <th th:if="${supplierDetailShow==true}">
+                            <a th:href="${'/supplierItem/' + supplier.id}" class="btn btn-primary btn-sm"><i class="fa fa-thumbs-up" style="font-size: 15px"></i>&nbsp;Select</a>
                         </th>
                     </tr>
                 </tbody>
@@ -83,6 +86,8 @@
             /*active boostrap alert - end*/
         </script>
     </div>
+    <!--TODO-->
+    <!--Save supplier show-->
 </div>
 <!--footer include-->
 <footer th:replace="~{fragments/footer :: footerFragment}"></footer>

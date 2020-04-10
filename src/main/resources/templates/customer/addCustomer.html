@@ -47,6 +47,12 @@
                         <div class="col-md-8">
                             <input id="id" th:field="*{id}" class="form-control" type="text" readonly/>
                         </div>
+                        <div class="col-md-4">
+                            <label class="control-label" for="code">Customer Code :</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input id="code" th:field="*{code}" class="form-control" type="text" readonly/>
+                        </div>
                     </div>
                     <!--Tittle -->
                     <div class="form-row text-right">
@@ -54,7 +60,7 @@
                             <label class="control-label" for="title">Title :</label>
                         </div>
                         <div class="col-md-8">
-                            <select id="title" th:field="*{title}" class="form-control" tabindex="3" style="font-size: large" required>
+                            <select id="title" th:field="*{title}" class="form-control" tabindex="3" required>
                                 <option value="">Please select</option>
                                 <option th:each="titles : ${title}"
                                         th:text="${titles.title}"
@@ -92,12 +98,23 @@
                     <!--Mobile Number-->
                     <div class="form-row text-right">
                         <div class="col-md-4">
-                            <label class="control-label" for="mobile">Mobile No :</label>
+                            <label class="control-label" for="mobile">Mobile :</label>
                         </div>
                         <div class="col-md-8">
-                            <input id="mobile" th:field="*{mobile}" class="form-control mobile" tabindex="6" type="text" maxlength="10" min="9" required/>
+                            <input id="mobile" th:field="*{mobile}" class="form-control mobile" tabindex="6" type="text" minlength="9" maxlength="10" required/>
                             <span class="error" th:errors="*{mobile}"
                                   th:if="${#fields.hasErrors('mobile')}" id="mobileError">Error Mobile Number</span>
+                        </div>
+                    </div>
+                    <!--Email-->
+                    <div class="form-row text-right">
+                        <div class="col-md-4">
+                            <label class="control-label" for="email">Email :</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input id="email" th:field="*{email}" class="form-control" tabindex="6" type="email"/>
+                            <span class="error" th:errors="*{email}"
+                                  th:if="${#fields.hasErrors('email')}" id="emailError">Error Mobile Number</span>
                         </div>
                     </div>
                     <!--Address-->
@@ -106,7 +123,7 @@
                             <label class="control-label" for="address">Address :</label>
                         </div>
                         <div class="col-md-8">
-                            <textarea id="address" th:field="*{address}" class="form-control" tabindex="7" rows="4" style="font-size: medium"></textarea>
+                            <textarea id="address" th:field="*{address}" class="form-control" tabindex="7" rows="3" style="font-size: medium"></textarea>
                             <span class="error" th:errors="*{address}"
                                   th:if="${#fields.hasErrors('address')}" id="addressError">Error Address</span>
                         </div>

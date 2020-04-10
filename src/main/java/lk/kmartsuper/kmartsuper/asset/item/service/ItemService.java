@@ -47,4 +47,8 @@ public class ItemService implements AbstractService<Item, Integer> {
         Example<Item> itemExample = Example.of(item, matcher);
         return itemDao.findAll(itemExample);
     }
+
+    public Item lastItem() {
+        return itemDao.findFirstByOrderByIdDesc();
+    }
 }

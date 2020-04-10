@@ -32,7 +32,7 @@
         </div>
     </div>
 </div>
-<div class="container-fluid bg-dark formBorder text-center">
+<div class="container-fluid bg-info formBorder text-center">
     <!--Table view-->
     <div class="col">
         <div class="col" id="itemListPresent" th:if="${not #lists.isEmpty(items)}">
@@ -40,30 +40,20 @@
                 <thead>
                     <tr>
                         <th> Index</th>
-                        <th> Status</th>
-                        <th> Category</th>
-                        <!--<th> SubCategory</th>-->
+                        <th> Main Category</th>
+                        <th> Sub Category</th>
                         <th> Name</th>
-                        <th> Price</th>
                         <th> ROP</th>
-                        <th> Batch</th>
-                        <th> MDate</th>
-                        <th> EDate</th>
                         <th> Modify</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr th:each="item, rowCount : ${items}">
                         <th th:text="${rowCount.count}"></th>
-                        <th th:text="${item.status}"></th>
-                        <th th:text="${item.category}"></th>
-                    <!--<th th:text="${item.subCategory}"></th>-->
+                        <th th:text="${item.category.mainCategory.mainCategory}"></th>
+                        <th th:text="${item.category.name}"></th>
                         <th th:text="${item.name}"></th>
-                        <th th:text="${item.price}"></th>
                         <th th:text="${item.rop}"></th>
-                        <th th:text="${item.batch}"></th>
-                        <th th:text="${item.mDate}"></th>
-                        <th th:text="${item.eDate}"></th>
                         <th>
                             <a id="itemView" th:href="${'/item/' + item.id}" class="btn btn-primary btn-sm"><i class="fa fa-folder-open" style="font-size: 15px"></i>&nbsp;View</a>
                             <a id="itemEdit" th:href="${'/item/edit/' + item.id}" class="btn btn-success btn-sm"><i class="fa fa-edit" style="font-size: 15px"></i>&nbsp;Edit</a>

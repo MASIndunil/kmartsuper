@@ -17,19 +17,8 @@ public class TwilioMessageService {
         Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
         Message message = Message
                 .creator(new PhoneNumber(number), new PhoneNumber("+19386666123"),
-                         messageBody)
+                        messageBody)
                 .create();
-
-        /*
-        * Old technology
-        * String ACCOUNT_SID = "AC5eb2291fc32feefffaee1e72124744c8";
-        String AUTH_TOKEN ="3ad8aa83519e4a57147810b324f4fca2";
-        String myTwilioNumber = "+15067006522";
-        Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
-       Message.creator(new PhoneNumber(senderNumber), new PhoneNumber(myTwilioNumber), message).create();
-        *
-        * */
-
-        System.out.println("Message "+message.getSid());
+        System.out.println("Message " + message.getSid());
     }
 }

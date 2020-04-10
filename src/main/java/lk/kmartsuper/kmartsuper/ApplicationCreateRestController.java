@@ -1,6 +1,5 @@
 package lk.kmartsuper.kmartsuper;
 
-import lk.kmartsuper.kmartsuper.asset.commonAsset.model.Enum.BloodGroup;
 import lk.kmartsuper.kmartsuper.asset.commonAsset.model.Enum.CivilStatus;
 import lk.kmartsuper.kmartsuper.asset.commonAsset.model.Enum.Gender;
 import lk.kmartsuper.kmartsuper.asset.commonAsset.model.Enum.Title;
@@ -46,17 +45,16 @@ public class ApplicationCreateRestController {
 
 //Employee
         Employee employee = new Employee();
-        employee.setPayRoleNumber("11111111");
         employee.setName("Admin User");
         employee.setCallingName("Admin");
-        employee.setName("908670000V");
-        employee.setMobileOne("0750000000");
-        employee.setTitle(Title.Dr);
-        employee.setGender(Gender.MALE);
-        employee.setBloodGroup(BloodGroup.AP);
-        employee.setDesignation(Designation.ED);
-        employee.setCivilStatus(CivilStatus.UNMARRIED);
-        employee.setEmployeeStatus(EmployeeStatus.WORKING);
+        employee.setName("901142122V");
+        employee.setMobileOne("0717130052");
+        employee.setMobileTwo("0760870052");
+        employee.setTitle(Title.Mr);
+        employee.setGender(Gender.Male);
+        employee.setDesignation(Designation.Owner);
+        employee.setCivilStatus(CivilStatus.Single);
+        employee.setEmployeeStatus(EmployeeStatus.Working);
         employee.setDateOfBirth(LocalDate.now().minusYears(18));
         employee.setDateOfAssignment(LocalDate.now());
         Employee employeeDb = employeeService.persist(employee);

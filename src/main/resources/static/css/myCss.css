@@ -19,6 +19,9 @@ body {
     background-repeat: no-repeat;
 }
 
+/* Combo box styles*/
+select { font-size: large !important;}
+
 /*html Background - end*/
 
 /*radio button style -start*/
@@ -277,14 +280,14 @@ input {
 }
 
 .formBorder {
-    border-radius: 15px;
-    background: linear-gradient(215deg, #5ca155, #a080c5, #56a4b6, #04c2ec, #f2e053);
-    background-size: 1000% 1000%;
+  //  border-radius: 15px;
+  //  background: linear-gradient(215deg, #5ca155, #a080c5, #56a4b6, #04c2ec, #f2e053);
+  //  background-size: 1000% 1000%;
 
-    -webkit-animation: AnimationName 31s ease infinite;
+    /*-webkit-animation: AnimationName 31s ease infinite;
     -moz-animation: AnimationName 31s ease infinite;
     -o-animation: AnimationName 31s ease infinite;
-    animation: AnimationName 31s ease infinite;
+    animation: AnimationName 31s ease infinite;*/
 }
 
 @-webkit-keyframes AnimationName {

@@ -1,5 +1,6 @@
 package lk.kmartsuper.kmartsuper.asset.supplier.service;
 
+import lk.kmartsuper.kmartsuper.asset.supplier.entity.Supplier;
 import lk.kmartsuper.kmartsuper.asset.supplier.dao.SupplierDao;
 import lk.kmartsuper.kmartsuper.asset.supplier.entity.Supplier;
 import lk.kmartsuper.kmartsuper.util.interfaces.AbstractService;
@@ -45,5 +46,9 @@ public class SupplierService implements AbstractService<Supplier, Integer>{
                 .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING);
         Example<Supplier> supplierExample = Example.of(supplier, matcher);
         return supplierDao.findAll(supplierExample);
+    }
+
+    public Supplier lastSupplier(){
+        return supplierDao.findFirstByOrderByIdDesc();
     }
 }
