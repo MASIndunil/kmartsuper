@@ -1,28 +1,29 @@
 package lk.kmartsuper.kmartsuper.asset.supplier.controller;
 
 
-import lk.kmartsuper.kmartsuper.asset.commonAsset.model.Enum.Title;
 import lk.kmartsuper.kmartsuper.asset.supplier.entity.Supplier;
 import lk.kmartsuper.kmartsuper.asset.supplier.service.SupplierService;
 import lk.kmartsuper.kmartsuper.util.interfaces.AbstractController;
+import lk.kmartsuper.kmartsuper.util.service.MakeAutoGenerateNumberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/supplier")
 public class SupplierController implements AbstractController<Supplier, Integer> {
     private final SupplierService supplierService;
+    private final MakeAutoGenerateNumberService makeAutoGenerateNumberService;
 
     @Autowired
-    public SupplierController(SupplierService supplierService) {
+    public SupplierController(SupplierService supplierService, MakeAutoGenerateNumberService makeAutoGenerateNumberService) {
         this.supplierService = supplierService;
+        this.makeAutoGenerateNumberService = makeAutoGenerateNumberService;
     }
 
     private String commonThings(Model model, Supplier supplier, Boolean addState) {
@@ -42,28 +43,51 @@ public class SupplierController implements AbstractController<Supplier, Integer>
         return commonThings(model, new Supplier(), true);
     }
 
-    @PostMapping( value = {"/save", "/update"} )
-    public String persist(Supplier supplier, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
-        if ( bindingResult.hasErrors() ) {
+    @PostMapping(value = {"/save", "/update"})
+    public String persist(@Valid @ModelAttribute Supplier supplier, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
+        if (bindingResult.hasErrors()) {
             return commonThings(model, supplier, true);
         }
-
-        supplierService.persist(supplier);
+        if (supplier.getContactOne() != null) {
+            supplier.setContactOne(makeAutoGenerateNumberService.phoneNumberLengthValidator(supplier.getContactOne()));
+        }
+        if (supplier.getContactTwo() != null) {
+            supplier.setContactTwo(makeAutoGenerateNumberService.phoneNumberLengthValidator(supplier.getContactTwo()));
+        }
+        //if supplier has id that supplier is not a new supplier
+        if (supplier.getId() == null) {
+            //if there is not supplier in db
+            if (supplierService.lastSupplier() == null) {
+                //need to generate new one
+                supplier.setCode("KMS"+makeAutoGenerateNumberService.numberAutoGen(null).toString());
+            } else {
+                System.out.println("last supplier not null");
+                //if there is supplier in db need to get that supplier's code and increase its value
+                String previousCode = supplierService.lastSupplier().getCode().substring(3);
+                supplier.setCode("KMS"+makeAutoGenerateNumberService.numberAutoGen(previousCode).toString());
+            }
+            //send welcome message and email
+            if (supplier.getEmail() != null) {
+                //  emailService.sendEmail(supplier.getEmail(), "Welcome Message", "Welcome to Kmart Super...");
+            }
+        }
+        redirectAttributes.addFlashAttribute("supplierDetail",
+                supplierService.persist(supplier));
         return "redirect:/supplier";
     }
 
-    @GetMapping( "/edit/{id}" )
+    @GetMapping("/edit/{id}")
     public String edit(@PathVariable Integer id, Model model) {
         return commonThings(model, supplierService.findById(id), false);
     }
 
-    @GetMapping( "/delete/{id}" )
+    @GetMapping("/delete/{id}")
     public String delete(@PathVariable Integer id, Model model) {
         supplierService.delete(id);
         return "redirect:/supplier";
     }
 
-    @GetMapping( "/{id}" )
+    @GetMapping("/{id}")
     public String view(@PathVariable Integer id, Model model) {
         model.addAttribute("supplierDetail", supplierService.findById(id));
         return "supplier/supplier-detail";

@@ -1,11 +1,11 @@
 package lk.kmartsuper.kmartsuper.asset.message.controller;
 
-import lk.kmartsuper.kmartsuper.asset.commonAsset.service.CommonService;
 import lk.kmartsuper.kmartsuper.asset.employee.entity.Employee;
 import lk.kmartsuper.kmartsuper.asset.employee.service.EmployeeService;
 import lk.kmartsuper.kmartsuper.asset.message.entity.EmailMessage;
 import lk.kmartsuper.kmartsuper.asset.message.service.EmailMessageService;
 import lk.kmartsuper.kmartsuper.util.service.EmailService;
+import lk.kmartsuper.kmartsuper.util.service.MakeAutoGenerateNumberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,18 +18,16 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Controller
-@RequestMapping( "/emailMessage" )
+@RequestMapping("/emailMessage")
 public class EmailMessageController {
     private final EmailMessageService emailMessageService;
-    private final CommonService commonService;
     private final EmailService emailService;
     private final EmployeeService employeeService;
 
     @Autowired
-    public EmailMessageController(EmailMessageService emailMessageService, CommonService commonService,
+    public EmailMessageController(EmailMessageService emailMessageService,
                                   EmailService emailService, EmployeeService employeeService) {
         this.emailMessageService = emailMessageService;
-        this.commonService = commonService;
         this.emailService = emailService;
         this.employeeService = employeeService;
     }
@@ -40,27 +38,27 @@ public class EmailMessageController {
         return "emailMessage/emailMessage";
     }
 
-    @GetMapping( "/{id}" )
+    @GetMapping("/{id}")
     public String viewEmailMessage(@PathVariable Integer id, Model model) {
         model.addAttribute("emailMessageDetail", emailMessageService.findById(id));
         return "emailMessage/emailMessage-detail";
     }
 
-    @GetMapping( "/add" )
+    @GetMapping("/add")
     public String getMessageForm(Model model) {
         model.addAttribute("emailMessage", new EmailMessage());
         //url to find employee
-        commonService.commonUrlBuilder(model);
+        // commonService.commonUrlBuilder(model);
         return "emailMessage/addEmailMessage";
     }
 
-    @PostMapping( "/add" )
+    @PostMapping("/add")
     public String sendEmailMessage(@Valid @ModelAttribute EmailMessage emailMessage, BindingResult result,
                                    Model model) {
-        if ( result.hasErrors() ) {
+        if (result.hasErrors()) {
             result.getAllErrors().forEach(System.out::println);
             model.addAttribute("emailMessage", emailMessage);
-            commonService.commonUrlBuilder(model);
+            //   commonService.commonUrlBuilder(model);
             return "emailMessage/addEmailMessage";
         }
         List<Employee> employees = new ArrayList<>();

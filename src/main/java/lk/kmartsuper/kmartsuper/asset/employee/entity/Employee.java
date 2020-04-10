@@ -1,7 +1,7 @@
 package lk.kmartsuper.kmartsuper.asset.employee.entity;
 
 import com.fasterxml.jackson.annotation.JsonFilter;
-import lk.kmartsuper.kmartsuper.asset.commonAsset.model.Enum.BloodGroup;
+import lk.kmartsuper.kmartsuper.asset.branch.entity.Branch;
 import lk.kmartsuper.kmartsuper.asset.commonAsset.model.Enum.CivilStatus;
 import lk.kmartsuper.kmartsuper.asset.commonAsset.model.Enum.Gender;
 import lk.kmartsuper.kmartsuper.asset.commonAsset.model.Enum.Title;
@@ -14,8 +14,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -33,23 +31,18 @@ import java.util.List;
 @JsonFilter( "Employee" )
 public class Employee extends AuditEntity {
 
-    @Column( unique = true )
-    private String payRoleNumber;
-
     @Size( min = 5, message = "Your name cannot be accepted" )
     private String name;
 
-    @Size( min = 5, message = "At least 5 characters should be included calling name" )
+    @Size( min = 3, message = "At least 5 characters should be included calling name" )
+    @Column( unique = true )
     private String callingName;
 
-    @Size( max = 12, min = 10, message = "NIC number is contained numbers between 9 and X/V or 12 " )
+    @Size( max = 12, min = 10, message = "NIC number must be contained numbers between 9 and X/V or 12 " )
     @Column( unique = true )
     private String nic;
 
-    @Column( unique = true )
-    private String departmentIdNumber;
-
-    @Size( max = 10, message = "Mobile number length should be contained 10 and 9" )
+    @Size( max = 10, min = 9, message = "Mobile number should be contained 10 and 9 digits" )
     private String mobileOne;
 
     private String mobileTwo;
@@ -72,9 +65,6 @@ public class Employee extends AuditEntity {
     private Gender gender;
 
     @Enumerated( EnumType.STRING )
-    private BloodGroup bloodGroup;
-
-    @Enumerated( EnumType.STRING )
     private Designation designation;
 
     @Enumerated( EnumType.STRING )
@@ -89,6 +79,8 @@ public class Employee extends AuditEntity {
     @DateTimeFormat( pattern = "yyyy-MM-dd" )
     private LocalDate dateOfAssignment;
 
+    @ManyToOne
+    private Branch branch;
 
     @ManyToMany( mappedBy = "employees" )
     private List<EmailMessage> emailMessages;

@@ -3,6 +3,7 @@ package lk.kmartsuper.kmartsuper.asset.item.category.controller;
 
 import lk.kmartsuper.kmartsuper.asset.item.category.entity.Category;
 import lk.kmartsuper.kmartsuper.asset.item.category.service.CategoryService;
+import lk.kmartsuper.kmartsuper.asset.item.entity.Enum.MainCategory;
 import lk.kmartsuper.kmartsuper.util.interfaces.AbstractController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,6 +26,7 @@ public class CategoryController implements AbstractController<Category, Integer>
     }
 
     private String commonThings(Model model, Category category, Boolean addState) {
+        model.addAttribute("mainCategories", MainCategory.values());
         model.addAttribute("category", category);
         model.addAttribute("addStatus", addState);
         return "category/addCategory";

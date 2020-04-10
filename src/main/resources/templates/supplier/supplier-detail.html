@@ -33,8 +33,8 @@
     </div>
 </div>
 <!--details-->
-<div th:fragment="supplierDetailsFragment" class="container-fluid bg-dark formBorder">
-    <div class="col-sm-12 flex-column">
+<div class="container-fluid bg-dark formBorder">
+    <div class="col-sm-12 flex-column" th:fragment="supplierDetailsFragment">
         <div class="row">
             <!--Left Side-->
             <div class="form-group col-md-6 col-sm-6 text-left flex-column">
@@ -48,13 +48,13 @@
                     </div>
                 </div>
                 <!--Code-->
-                <!--<div class="form-row text-right">
+                <div class="form-row text-right">
                     <div class="col-md-4">
-                        <label class="control-label" for="departmentIdNumber">Depart Id No :</label>
+                        <label class="control-label" for="code">Supplier Code :</label>
                     </div>
                     <div class="col-md-8">
-                        <p id="departmentIdNumber" th:text="${supplierDetail.departmentIdNumber}" class="display_detail"></p></div>
-                </div>-->
+                        <p id="code" th:text="${supplierDetail.code}" class="display_detail"></p></div>
+                </div>
                 <!--Name-->
                 <div class="form-row text-right">
                     <div class="col-md-4">
@@ -92,6 +92,9 @@
                         <p id="contactTwo" th:text="${supplierDetail.contactTwo}" class="display_detail"></p>
                     </div>
                 </div>
+            </div>
+            <!--Right Side-->
+            <div class="form-group col-md-6 col-sm-6 text-right flex-column">
                 <!--Email-->
                 <div class="form-row text-right">
                     <div class="col-md-4">
@@ -110,9 +113,6 @@
                         <p id="address" class="display_detail " th:utext="${supplierDetail.address}"></p>
                     </div>
                 </div>
-            </div>
-            <!--Right Side-->
-            <div class="form-group col-md-6 col-sm-6 text-right flex-column">
                 <!--Created By-->
                 <div class="form-row text-right">
                     <div class="col-md-4">
@@ -151,15 +151,15 @@
                     </div>
                 </div>
             </div>
-            <!--Back Button-->
-            <div class="form-group col-md-12 col-sm-12 text-center flex-column ">
-                <a href="/supplier">
-                    <button class="btn btn-dark" type="button" tabindex="3">
-                        <i class="fa fa-arrow-circle-left" style="font-size: 20px"></i>&nbsp; &nbsp;Back
-                    </button>
-                </a>
-            </div>
         </div>
+    </div>
+    <!--Back Button-->
+    <div class="form-group col-md-12 col-sm-12 text-center flex-column ">
+        <a href="/supplier">
+            <button class="btn btn-dark mb-5" type="button" tabindex="3">
+                <i class="fa fa-arrow-circle-left" style="font-size: 20px"></i>&nbsp; &nbsp;Back
+            </button>
+        </a>
     </div>
 </div>
 

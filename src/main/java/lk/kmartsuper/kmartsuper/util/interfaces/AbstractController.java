@@ -20,7 +20,7 @@ public interface AbstractController<E, I> {
 
     String addForm(Model model);
 
-    String persist(E e, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model);
+    String persist(E e, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) throws Exception;
 
     String edit(I id, Model model);
 

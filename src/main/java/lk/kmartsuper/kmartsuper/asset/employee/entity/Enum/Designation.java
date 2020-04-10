@@ -7,24 +7,13 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum Designation {
     //All station can check
-    CGE("Commissioner General Of Excise"),
-    ACGE("Additional Commissioner General Of Excise"),
-    CE("Commissioner Of Excise"),
-    DCL("Deputy Commissioner Of Excise( Legal )"),
-    DCLE("Deputy Commissioner Excise(Law Enforcement)"),
-    //Normal every thing belong to his - able to check more than one work station
-    ACE("Assistant Commissioner Of Excise"),
-    //Below guy has check station belong to him
-    SE("Superintendent Of Excise"),
-    //Station staff all below this comment
-    OIC("Chief Inspector Of Excise"),
-    IE("Inspector Of Excise"),
-    ESM("Excise Sergeant Major"),
-    ES("Excise Sergeant"),
-    //There is no authority to logo in to the system
-    EC("Excise Corporal"),
-    EG("Excise Guard"),
-    ED("Excise Driver");
+    Cashier("Cashier"),
+    Sales_Ass("Sales Assistant"),
+    Sales_Man("Sales Manager"),
+    Store_Ass("Store Assistant"),
+    Store_Man("Store Manager"),
+    Owner("Owner");
+
 
     private final String designation;
 }

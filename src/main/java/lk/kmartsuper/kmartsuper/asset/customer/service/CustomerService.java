@@ -47,4 +47,8 @@ public class CustomerService implements AbstractService<Customer, Integer>{
         Example<Customer> customerExample = Example.of(customer, matcher);
         return customerDao.findAll(customerExample);
     }
+
+    public Customer lastCustomer(){
+        return customerDao.findFirstByOrderByIdDesc();
+    }
 }
