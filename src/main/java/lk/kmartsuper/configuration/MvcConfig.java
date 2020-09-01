@@ -3,7 +3,6 @@ package lk.kmartsuper.configuration;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.concurrent.ConcurrentMapCacheManager;
@@ -17,11 +16,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
-import org.thymeleaf.dialect.IDialect;
-import org.thymeleaf.extras.java8time.dialect.Java8TimeDialect;
-import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 
-import javax.annotation.PostConstruct;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.TimeZone;
@@ -71,10 +66,6 @@ public class MvcConfig implements WebMvcConfigurer {
         return jacksonObjectMapperBuilder -> jacksonObjectMapperBuilder.timeZone(TimeZone.getTimeZone("Asia/Colombo"));
     }
 
-    @Bean
-    public IDialect conditionalCommentDialect() {
-        return new Java8TimeDialect();
-    }
     //to enable Cache in spring boot
     @Bean
     public CacheManager cacheManager() {

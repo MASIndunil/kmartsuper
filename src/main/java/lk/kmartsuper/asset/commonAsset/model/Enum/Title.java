@@ -1,17 +1,26 @@
 package lk.kmartsuper.asset.commonAsset.model.Enum;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
 public enum Title {
-    Mr("Mr. "),
-    Mrs("Mrs. "),
-    Miss("Miss. "),
-    Rev("Rev. "),
-    Dr("Dr. "),
-    Sister("Sister. ");
+    MR("Mr. "),
+    MRS("Mrs. "),
+    MISS("Miss. "),
+    MS("Ms. "),
+    REV("Rev. "),
+    DR("Dr. "),
+    DRMRS("Dr(Mrs). "),
+    PRO("Prof. "),
+    SISTER("Sister. ");
 
+    public static Object Mr;
     private final String title;
+
+    public class Mr {
+    }
 }
+

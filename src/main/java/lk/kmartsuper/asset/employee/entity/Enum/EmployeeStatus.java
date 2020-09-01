@@ -1,11 +1,14 @@
 package lk.kmartsuper.asset.employee.entity.Enum;
 
+
+
 public enum EmployeeStatus {
-    Working("Working"),
-    Leave("Leave"),
+    WORKING("Working"),
+    LEAVE("Leave"),
+    SUSPENDED("Suspended"),
+    NOPAY("No pay"),
     MEDICAL("Medical Leave"),
-    Transferred("Transferred"),
-    Suspended("Suspended"),
+    BLOCK("Block"),
     RESIGNED("Resigned"),
     RETIRED("Retired");
 

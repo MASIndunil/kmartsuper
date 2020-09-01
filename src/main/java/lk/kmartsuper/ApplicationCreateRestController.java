@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
 import java.util.stream.Collectors;
-
 @RestController
 public class ApplicationCreateRestController {
     private final RoleService roleService;
@@ -50,11 +49,11 @@ public class ApplicationCreateRestController {
         employee.setName("901142122V");
         employee.setMobileOne("0717130052");
         employee.setMobileTwo("0760870052");
-        employee.setTitle(Title.Mr);
-        employee.setGender(Gender.Male);
+        employee.setTitle((Title) Title.Mr);
+        employee.setGender(Gender.MALE);
         employee.setDesignation(Designation.Owner);
-        employee.setCivilStatus(CivilStatus.Single);
-        employee.setEmployeeStatus(EmployeeStatus.Working);
+        employee.setCivilStatus(CivilStatus.UNMARRIED);
+        employee.setEmployeeStatus(EmployeeStatus.WORKING);
         employee.setDateOfBirth(LocalDate.now().minusYears(18));
         employee.setDateOfAssignment(LocalDate.now());
         Employee employeeDb = employeeService.persist(employee);
@@ -68,9 +67,9 @@ public class ApplicationCreateRestController {
         String message = "Username:- " + user.getUsername() + "\n Password:- " + user.getPassword();
         user.setEnabled(true);
         user.setRoles(roleService.findAll()
-                .stream()
-                .filter(role -> role.getRoleName().equals("ADMIN"))
-                .collect(Collectors.toList()));
+                              .stream()
+                              .filter(role -> role.getRoleName().equals("ADMIN"))
+                              .collect(Collectors.toList()));
         userService.persist(user);
 
         return message;

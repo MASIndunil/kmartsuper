@@ -1,5 +1,4 @@
 package lk.kmartsuper.asset.userManagement.entity;
-
 import lk.kmartsuper.asset.userManagement.entity.Enum.UserSessionLogStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

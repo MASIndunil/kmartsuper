@@ -1,5 +1,6 @@
 package lk.kmartsuper.asset.employee.entity;
 
+
 import lk.kmartsuper.util.audit.AuditEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

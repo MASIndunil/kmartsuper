@@ -1,13 +1,15 @@
 package lk.kmartsuper.asset.commonAsset.model.Enum;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
 public enum Gender {
-    Male("Male"),
-    Female("Female");
+    MALE("Male"),
+    FEMALE("Female");
 
-    private final String gender;
+ private final String gender;
+
 }
