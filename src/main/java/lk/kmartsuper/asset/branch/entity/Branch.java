@@ -1,5 +1,7 @@
 package lk.kmartsuper.asset.branch.entity;
 
+
+
 import lk.kmartsuper.asset.employee.entity.Employee;
 import lk.kmartsuper.util.audit.AuditEntity;
 import lombok.AllArgsConstructor;
@@ -7,9 +9,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.Size;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Getter
@@ -32,5 +36,6 @@ public class Branch extends AuditEntity {
     private String email;
 
     @OneToMany( mappedBy = "branch" )
-    private List<Employee> employees;
+    private List< Employee > employees;
 }
+

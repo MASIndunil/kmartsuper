@@ -27,7 +27,7 @@ public class UserController {
 
     @Autowired
     public UserController(UserService userService, EmployeeService employeeService, RoleService roleService
-                         ) {
+    ) {
         this.userService = userService;
         this.employeeService = employeeService;
         this.roleService = roleService;
@@ -131,7 +131,7 @@ public class UserController {
         Designation designation = employee.getDesignation();
 
         // userService.persist(user);
-        if ( employee.getEmployeeStatus().equals(EmployeeStatus.Working) ) {
+        if ( employee.getEmployeeStatus().equals(EmployeeStatus.WORKING) ) {
             user.setEnabled(true);
         } else {
             user.setEnabled(false);

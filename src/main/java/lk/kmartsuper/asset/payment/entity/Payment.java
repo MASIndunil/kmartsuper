@@ -1,7 +1,9 @@
 package lk.kmartsuper.asset.payment.entity;
 
+
+
 import com.fasterxml.jackson.annotation.JsonFilter;
-import lk.kmartsuper.asset.purchaseOrder.entity.PurchaseOrder;
+import lk.kmartsuper.asset.PurchaseOrder.entity.PurchaseOrder;
 import lk.kmartsuper.asset.invoice.entity.Enum.PaymentMethod;
 import lk.kmartsuper.util.audit.AuditEntity;
 import lombok.AllArgsConstructor;
@@ -19,6 +21,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @JsonFilter("Payment")
 public class Payment extends AuditEntity {
+
     private String bankName;
 
     private String remarks;
@@ -32,6 +35,6 @@ public class Payment extends AuditEntity {
     @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal amount;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private PurchaseOrder purchaseOrder;
 }

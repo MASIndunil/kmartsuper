@@ -1,5 +1,8 @@
 package lk.kmartsuper.asset.goodReceivedNote.service;
 
+
+
+import lk.kmartsuper.asset.PurchaseOrder.entity.PurchaseOrder;
 import lk.kmartsuper.asset.goodReceivedNote.dao.GoodReceivedNoteDao;
 import lk.kmartsuper.asset.goodReceivedNote.entity.GoodReceivedNote;
 import lk.kmartsuper.util.interfaces.AbstractService;
@@ -9,11 +12,11 @@ import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.*;
 
 @Service
 @CacheConfig(cacheNames = "goodReceivedNote")
-public class GoodReceivedNoteService implements AbstractService<GoodReceivedNote, Integer> {
+public class GoodReceivedNoteService implements AbstractService< GoodReceivedNote, Integer> {
     private final GoodReceivedNoteDao goodReceivedNoteDao;
 
     @Autowired
@@ -22,7 +25,7 @@ public class GoodReceivedNoteService implements AbstractService<GoodReceivedNote
     }
 
     @Override
-    public List<GoodReceivedNote> findAll() {
+    public List< GoodReceivedNote > findAll() {
         return goodReceivedNoteDao.findAll();
     }
 
@@ -50,5 +53,10 @@ public class GoodReceivedNoteService implements AbstractService<GoodReceivedNote
                 .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING);
         Example<GoodReceivedNote> goodReceivedNoteExample = Example.of(goodReceivedNote, matcher);
         return goodReceivedNoteDao.findAll(goodReceivedNoteExample);
+    }
+
+
+    public GoodReceivedNote findByPurchaseOrder(PurchaseOrder purchaseOrder) {
+        return goodReceivedNoteDao.findByPurchaseOrder(purchaseOrder);
     }
 }

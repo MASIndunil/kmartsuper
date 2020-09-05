@@ -1,19 +1,19 @@
 package lk.kmartsuper.asset.employee.controller;
 
-import lk.kmartsuper.asset.branch.service.BranchService;
+import lk.kmartsuper.asset.commonAsset.model.Enum.BloodGroup;
 import lk.kmartsuper.asset.commonAsset.model.Enum.CivilStatus;
 import lk.kmartsuper.asset.commonAsset.model.Enum.Gender;
 import lk.kmartsuper.asset.commonAsset.model.Enum.Title;
-import lk.kmartsuper.asset.userManagement.entity.User;
-import lk.kmartsuper.asset.userManagement.service.UserService;
+import lk.kmartsuper.asset.commonAsset.service.CommonService;
 import lk.kmartsuper.asset.employee.entity.Employee;
 import lk.kmartsuper.asset.employee.entity.EmployeeFiles;
 import lk.kmartsuper.asset.employee.entity.Enum.Designation;
 import lk.kmartsuper.asset.employee.entity.Enum.EmployeeStatus;
 import lk.kmartsuper.asset.employee.service.EmployeeFilesService;
 import lk.kmartsuper.asset.employee.service.EmployeeService;
+import lk.kmartsuper.asset.userManagement.entity.User;
+import lk.kmartsuper.asset.userManagement.service.UserService;
 import lk.kmartsuper.util.service.DateTimeAgeService;
-import lk.kmartsuper.util.service.MakeAutoGenerateNumberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -28,27 +28,25 @@ import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-@Controller
 @RequestMapping("/employee")
+@Controller
 public class EmployeeController {
     private final EmployeeService employeeService;
     private final EmployeeFilesService employeeFilesService;
     private final DateTimeAgeService dateTimeAgeService;
-    private final MakeAutoGenerateNumberService makeAutoGenerateNumberService;
+    private final CommonService commonService;
     private final UserService userService;
-    private final BranchService branchService;
 
     @Autowired
     public EmployeeController(EmployeeService employeeService, EmployeeFilesService employeeFilesService,
-                              DateTimeAgeService dateTimeAgeService,
-                              MakeAutoGenerateNumberService makeAutoGenerateNumberService, UserService userService, BranchService branchService) {
+                              DateTimeAgeService dateTimeAgeService, CommonService commonService,
+                              UserService userService) {
         this.employeeService = employeeService;
         this.employeeFilesService = employeeFilesService;
 
         this.dateTimeAgeService = dateTimeAgeService;
-        this.makeAutoGenerateNumberService = makeAutoGenerateNumberService;
+        this.commonService = commonService;
         this.userService = userService;
-        this.branchService = branchService;
     }
 //----> Employee details management - start <----//
 
@@ -56,10 +54,11 @@ public class EmployeeController {
     private String commonThings(Model model) {
         model.addAttribute("title", Title.values());
         model.addAttribute("gender", Gender.values());
+        model.addAttribute("designation", Designation.values());
+        model.addAttribute("bloodGroup", BloodGroup.values());
         model.addAttribute("civilStatus", CivilStatus.values());
         model.addAttribute("employeeStatus", EmployeeStatus.values());
-        model.addAttribute("designation", Designation.values());
-        model.addAttribute("branches", branchService.findAll());
+
         return "employee/addEmployee";
     }
 
@@ -94,6 +93,7 @@ public class EmployeeController {
     public String editEmployeeForm(@PathVariable("id") Integer id, Model model) {
         Employee employee = employeeService.findById(id);
         model.addAttribute("employee", employee);
+        model.addAttribute("newEmployee", employee.getPayRoleNumber());
         model.addAttribute("addStatus", false);
         model.addAttribute("files", employeeFilesService.employeeFileDownloadLinks(employee));
         return commonThings(model);
@@ -118,14 +118,14 @@ public class EmployeeController {
             return commonThings(model);
         }
         try {
-            employee.setMobileOne(makeAutoGenerateNumberService.phoneNumberLengthValidator(employee.getMobileOne()));
-            employee.setMobileTwo(makeAutoGenerateNumberService.phoneNumberLengthValidator(employee.getMobileTwo()));
-            employee.setLand(makeAutoGenerateNumberService.phoneNumberLengthValidator(employee.getLand()));
+            employee.setMobileOne(commonService.commonMobileNumberLengthValidator(employee.getMobileOne()));
+            employee.setMobileTwo(commonService.commonMobileNumberLengthValidator(employee.getMobileTwo()));
+            employee.setLand(commonService.commonMobileNumberLengthValidator(employee.getLand()));
             //after save employee files and save employee
             employeeService.persist(employee);
 
             //if employee state is not working he or she cannot access to the system
-            if (!employee.getEmployeeStatus().equals(EmployeeStatus.Working)) {
+            if (!employee.getEmployeeStatus().equals(EmployeeStatus.WORKING)) {
                 User user = userService.findUserByEmployee(employeeService.findByNic(employee.getNic()));
                 //if employee not a user
                 if (user != null) {
@@ -133,7 +133,7 @@ public class EmployeeController {
                     userService.persist(user);
                 }
             }
-            //save employee images file
+            //save employee img file
             for (MultipartFile file : employee.getFiles()) {
                 if (file.getOriginalFilename() != null) {
                     EmployeeFiles employeeFiles = employeeFilesService.findByName(file.getOriginalFilename());

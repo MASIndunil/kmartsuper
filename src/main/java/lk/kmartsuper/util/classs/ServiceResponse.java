@@ -1,5 +1,6 @@
 package lk.kmartsuper.util.classs;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

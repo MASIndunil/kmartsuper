@@ -1,13 +1,17 @@
 package lk.kmartsuper.asset.commonAsset.model.Enum;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
 public enum CivilStatus {
-    Single("Single"),
-    Married("Married");
+
+    MARRIED("Married"),
+    UNMARRIED("UnMarried");
 
     private final String civilStatus;
+
+
 }
