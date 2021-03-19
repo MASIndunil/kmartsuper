@@ -1,5 +1,6 @@
 package lk.kmart_super.asset.user_management.user.dao;
 
+
 import lk.kmart_super.asset.common_asset.model.enums.LiveDead;
 import lk.kmart_super.asset.employee.entity.Employee;
 import lk.kmart_super.asset.user_management.user.entity.User;
@@ -11,7 +12,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface UserDao extends JpaRepository<User, Integer > {
+public interface UserDao extends JpaRepository< User, Integer > {
 
     @Query( value = "select id from User where employee_id=?1", nativeQuery = true )
     Integer findByEmployeeId(@Param("employee_id") Integer id);
