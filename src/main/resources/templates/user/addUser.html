@@ -153,18 +153,17 @@
               </div >
             </div >
             <!--Right Side-->
-            <div class="form-group col-md-5 col-sm-7 text-left flex-column" >
+            <div class="form-group col-md-5 col-sm-7 text-left flex-column">
               <!--Roles Display-->
-              <div class="form-row" >
-                <label class="control-label" for="roles" >Roles :</label >
-                <select id="roles" data-th-field="*{roles}" class="form-control" size="6" multiple required >
-                  <option id="roleList" data-th-each="role, rowCount : ${roleList}"
-                          data-th-text="${rowCount.count} +${'. '}+${role.roleName}"
-                          data-th-value="${role.id}"
-                          data-th-field="*{roles}" value="" ></option >
-                </select >
+              <div class="form-check" data-th-each="role : ${roleList}" >
+                <label class="form-check-label" >
+                  <input type="checkbox" class="form-check-input"
+                         data-th-text="${#strings.toUpperCase(role.roleName.substring(0, 1))+#strings.toLowerCase(role.roleName.substring(1))}"
+                         data-th-value="${role.id}"
+                         data-th-field="*{roles}" >
+                </label >
               </div >
-            </div >
+            </div>
 
             <!--Button-->
             <div class="form-group col-md-12 col-sm-12 text-center flex-column" >
