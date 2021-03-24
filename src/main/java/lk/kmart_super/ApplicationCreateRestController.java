@@ -3,6 +3,7 @@ package lk.kmart_super;
 
 import lk.kmart_super.asset.common_asset.model.enums.CivilStatus;
 import lk.kmart_super.asset.common_asset.model.enums.Gender;
+import lk.kmart_super.asset.common_asset.model.enums.LiveDead;
 import lk.kmart_super.asset.common_asset.model.enums.Title;
 import lk.kmart_super.asset.employee.entity.Employee;
 import lk.kmart_super.asset.employee.entity.enums.Designation;
@@ -53,6 +54,7 @@ public class ApplicationCreateRestController {
         employee.setMobileOne("0750000000");
         employee.setTitle(Title.MR);
         employee.setGender(Gender.MALE);
+        employee.setLiveDead(LiveDead.STOP);
         employee.setDesignation(Designation.ADMIN);
         employee.setCivilStatus(CivilStatus.UNMARRIED);
         employee.setEmployeeStatus(EmployeeStatus.WORKING);
