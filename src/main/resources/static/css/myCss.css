@@ -6,47 +6,35 @@
     "Iskoola Pota";
     --error-color: #fa370d;
 }
-/* for login form - start*/
-#loginBack {
-    background-image: url('../img/12.jpg');
-    margin: 0;
-    padding: 0;
-    background-size: cover;
 
+/*login page start*/
 
-}
-
-#loginPage .logo1 {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(200%,-20%);
-    width: 200px;
-    height: 200px;
-    padding: 0;
-    border-radius: 10px;
-
-}
 #loginPage {
-    position: absolute;
+    background: url(../img/login.jpg)no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-attachment: fixed;
     top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    width: 800px;
+
+}
+.loginback{
+    margin-left: 750px;
+    width: 500px;
     padding: 20px;
-    background: rgba(0,0,0,.2);
-    box-sizing: border-box;
-    box-shadow: 0 15px 25px rgba(0,0,0,.8);
-    border-radius: 10px;
+    margin-top:150px;
 
 
 }
 
 #loginPage h1{
-    margin: 0 0 30px;
-    padding: 0;
-    color: #ffffff;
-    text-align: center;
+
+    padding: 5px;
+    margin-left:30px;
+    color: #20B2AA;
+    text-align: justify;
+    font-size:32px;
 }
 
 #loginPage  .form-label-group {
@@ -58,10 +46,10 @@
     padding: 0 20px;
     font-size: 16px;
     letter-spacing: 1px;
-    color: #ffffff;
+    color: #000000;
     margin-bottom: 30px;
     border: none;
-    border-bottom: 1px solid #ffffff;
+    border-bottom: 1px solid #20B2AA;
     outline: none;
     background: transparent;
 }
@@ -71,9 +59,9 @@
     top: 0;
     left: 0;
     padding: 0 20px;
-    font-size: 16px;
+    font-size: 14px;
     letter-spacing: 1px;
-    color: #ffffff;
+    color: #20B2AA;
     pointer-events: none;
     transition: .5s;
 }
@@ -82,7 +70,7 @@
 #loginPage .form-label-group input:valid ~ label{
     top: -18px;
     left: 0;
-    color: #ffffff;
+    color:#20B2AA;
     font-size: 12px;
 }
 
@@ -96,4 +84,148 @@
     border-radius: 5px;
 
 }
-/* for login form - end*/
+
+
+#btnLogin{
+
+    display: inline-block;
+    height: 40px;
+    width: 200px;
+    padding: 3px;
+    line-height: 40px;
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+    font-size: 14px;
+    background-color: #1f7370;
+    border-radius: 250px;
+    color: #fff;
+    font-weight: bold;
+    margin-top: 20px;
+    margin-right:100px;
+    cursor: pointer;
+    text-decoration: none;
+    -webkit-transition:top 0.6s;
+    -moz-transition:top 0.6s;
+    -o-transition:top 0.6s;
+}
+
+
+#btnLogin:hover{
+    background-color: lightseagreen;
+
+}
+
+.for-pass{
+
+    text-decoration: none;
+    display: block;
+    margin-top: 50px;
+    font-weight: bold;
+    font-size: 14px;
+    color: #fff;
+}
+/* login page-end */
+
+/*Nav Bar style start*/
+ #body-row {
+     margin-left:0;
+     margin-right:0;
+ }
+#sidebar-container {
+    min-height: 100vh;
+    background-color: #333;
+    padding: 0;
+}
+
+/* Sidebar sizes when expanded and expanded */
+ .sidebar-expanded {
+     width:230px;
+ }
+.sidebar-collapsed {
+    width: 60px;
+}
+
+/* Menu item*/
+ #sidebar-container .list-group a {
+     height: 50px;
+     color: white;
+ }
+
+/*  Submenu item*/
+ #sidebar-container .list-group .sidebar-submenu a {
+     height: 45px;
+     padding-left: 30px;
+ }
+.sidebar-submenu {
+    font-size: 0.9rem;
+}
+
+/* Separators */
+ .sidebar-separator-title {
+     background-color: #333;
+     height: 35px;
+ }
+.sidebar-separator {
+    background-color: #333;
+    height: 25px;
+}
+.logo-separator {
+    background-color: #333;
+    height:250px;
+    float: left;
+    background-image: url("../img/logo-removebg-preview.png");
+    margin-left:-150px;
+
+}
+
+/*  Closed submenu icon */
+ #sidebar-container .list-group .list-group-item[aria-expanded="false"] .submenu-icon::after {
+     content: " \f0d7";
+     font-family: FontAwesome;
+     display: inline;
+     text-align: right;
+     padding-left: 10px;
+ }
+/*  Opened submenu icon */
+ #sidebar-container .list-group .list-group-item[aria-expanded="true"] .submenu-icon::after {
+     content: " \f0da";
+     font-family: FontAwesome;
+     display: inline;
+     text-align: right;
+     padding-left: 10px;
+ }
+/* Nav Bar style end*/
+
+/*MainWindow Style - Start*/
+.mainbody{
+    background: url(../img/mainwindow.png)no-repeat center center fixed;
+    margin-left:230px;
+    margin-top:-650px;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.card{
+    max-width: 18rem;
+    margin-bottom:20px;
+    margin-left:10px;
+    border:1px solid #4f4f4f;
+    border-radius:10%;
+}
+.cardrow{
+    width:950px;
+    padding:20px;
+}
+.card-header{
+    font-family: Tahoma;
+    font-weight: bolder;
+
+}
+
+
+
+/*MainWindow Style - End*/
