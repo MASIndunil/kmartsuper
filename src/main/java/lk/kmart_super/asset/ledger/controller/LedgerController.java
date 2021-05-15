@@ -28,30 +28,30 @@ public class LedgerController {
   //all ledgers
   @GetMapping
   public String findAllLed(Model model) {
-    model.addAttribute("title", "All Items In Stock");
+    model.addAttribute("title", "All items in the stock");
     model.addAttribute("ledgers", ledgerService.findAll());
     model.addAttribute("twoDate", new TwoDate());
     return "ledger/ledger";
   }
 
   //reorder point < item count
-  @GetMapping( "/reorderPoint" )
+  /*@GetMapping( "/reorderPoint" )
   public String reorderPoint(Model model) {
     model.addAttribute("title", "Reorder Point Limit Exceeded");
     model.addAttribute("ledgers", ledgerService.findAll()
         .stream()
-        .filter(x -> Integer.parseInt(x.getQuantity()) < Integer.parseInt(x.getItem().getRop()))
+        .filter(x -> Integer.parseInt(x.getQuantity()) <= Integer.parseInt(x.getItem().getRop()))
         .collect(Collectors.toList()));
     model.addAttribute("twoDate", new TwoDate());
     return "ledger/ledger";
-  }
+  }*/
 
   //near expired date
-  @PostMapping( "/expiredDate" )
+  @PostMapping( "/search" )
   public String expiredDate(@ModelAttribute TwoDate twoDate, Model model) {
     System.out.println("star date " + twoDate.getStartDate() + " end " + twoDate.getEndDate());
     model.addAttribute("title",
-                       "All items on given date range start at " + twoDate.getStartDate() + " end at " + twoDate.getEndDate());
+                       twoDate.getStartDate() + "  to  " + twoDate.getEndDate());
     model.addAttribute("ledgers",
                        ledgerService.findByExpiredDateBetween(twoDate.getStartDate(), twoDate.getEndDate()));
     System.out.println("star date " + dateTimeAgeService.dateTimeToLocalDateStartInDay(twoDate.getStartDate()) + " " +

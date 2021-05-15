@@ -8,6 +8,7 @@ import lk.kmart_super.asset.purchase_order.entity.enums.PurchaseOrderStatus;
 import lk.kmart_super.asset.supplier.entity.Supplier;
 import lk.kmart_super.util.interfaces.AbstractService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
@@ -73,7 +74,7 @@ public class PurchaseOrderService implements AbstractService< PurchaseOrder, Int
         return purchaseOrderDao.findByPurchaseOrderStatusAndSupplier(purchaseOrderStatus, supplier);
     }
 
-    public List< PurchaseOrder> findByCreatedAtIsBetween(LocalDateTime form, LocalDateTime to) {
-    return purchaseOrderDao.findByCreatedAtIsBetween(form, to);
+    public List< PurchaseOrder> findByUpdatedAtIsBetween(LocalDateTime form, LocalDateTime to, PurchaseOrderStatus purchaseOrderStatus) {
+    return purchaseOrderDao.findByUpdatedAtIsBetweenAndPurchaseOrderStatus(form, to, purchaseOrderStatus);
     }
 }

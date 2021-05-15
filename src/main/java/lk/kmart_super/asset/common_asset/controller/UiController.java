@@ -1,12 +1,18 @@
 package lk.kmart_super.asset.common_asset.controller;
 
 
+import lk.kmart_super.asset.user_management.role.entity.Role;
+import lk.kmart_super.asset.user_management.user.entity.User;
 import lk.kmart_super.asset.user_management.user.service.UserService;
 import lk.kmart_super.util.service.DateTimeAgeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class UiController {
@@ -26,21 +32,8 @@ public class UiController {
     }
 
     @GetMapping(value = {"/home", "/mainWindow"})
-    public String getHome(Model model) {
-        //do some logic here if you want something to be done whenever
-        /*User authUser = userService.findByUserName(SecurityContextHolder.getContext().getAuthentication().getName());
-        Set<Petition> petitionSet = new HashSet<>();
-        minutePetitionService
-                .findByEmployeeAndCreatedAtBetween(authUser.getEmployee(),
-                        dateTimeAgeService
-                                .dateTimeToLocalDateStartInDay(LocalDate.now()),
-                        dateTimeAgeService
-                                .dateTimeToLocalDateEndInDay(LocalDate.now())).forEach(
-                minutePetition -> {
-                    petitionSet.add(petitionService.findById(minutePetition.getPetition().getId()));
-                });
-        model.addAttribute("petitions", petitionSet.toArray());*/
-        return "mainWindow";
+    public String getHome() {
+       return "/mainWindow";
     }
 
     @GetMapping(value = {"/login"})

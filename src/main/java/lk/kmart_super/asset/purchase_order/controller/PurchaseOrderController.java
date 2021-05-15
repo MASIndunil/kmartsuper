@@ -1,6 +1,5 @@
 package lk.kmart_super.asset.purchase_order.controller;
 
-
 import lk.kmart_super.asset.common_asset.service.CommonService;
 import lk.kmart_super.asset.item.entity.Item;
 import lk.kmart_super.asset.item.service.ItemService;
@@ -41,7 +40,8 @@ public class PurchaseOrderController {
 
     public PurchaseOrderController(PurchaseOrderService purchaseOrderService,
                                    PurchaseOrderItemService purchaseOrderItemService, SupplierService supplierService
-            , CommonService commonService, ItemService itemService, MakeAutoGenerateNumberService makeAutoGenerateNumberService, EmailService emailService,
+            , CommonService commonService, ItemService itemService,MakeAutoGenerateNumberService makeAutoGenerateNumberService,
+                                   EmailService emailService,
                                    TwilioMessageService twilioMessageService) {
         this.purchaseOrderService = purchaseOrderService;
       this.purchaseOrderItemService = purchaseOrderItemService;
@@ -91,12 +91,12 @@ public class PurchaseOrderController {
         if (purchaseOrder.getId() == null) {
             if (purchaseOrderService.lastPurchaseOrder() == null) {
                 //need to generate new one
-                purchaseOrder.setCode("SSPO" + makeAutoGenerateNumberService.numberAutoGen(null).toString());
+                purchaseOrder.setCode("PO" + makeAutoGenerateNumberService.numberAutoGen(null).toString());
             } else {
 
                 //if there is customer in db need to get that customer's code and increase its value
-                String previousCode = purchaseOrderService.lastPurchaseOrder().getCode().substring(4);
-                purchaseOrder.setCode("SSPO" + makeAutoGenerateNumberService.numberAutoGen(previousCode).toString());
+                String previousCode = purchaseOrderService.lastPurchaseOrder().getCode().substring(2);
+                purchaseOrder.setCode("PO" + makeAutoGenerateNumberService.numberAutoGen(previousCode).toString());
             }
         }
         List<PurchaseOrderItem> purchaseOrderItemList = new ArrayList<>();
@@ -130,7 +130,7 @@ public class PurchaseOrderController {
                 try {
                   String mobileNumber = purchaseOrderSaved.getSupplier().getContactOne().substring(1,10);
                     twilioMessageService.sendSMS("+94"+mobileNumber, "There is immediate PO from " +
-                            "Samarasingher Super \nPlease Check Your Email Form Further Details");
+                            "KMart Super \nPlease Check Your Email Form Further Details");
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -156,12 +156,14 @@ public class PurchaseOrderController {
         return "purchaseOrder/purchaseOrder-detail";
     }
 
-    @GetMapping("delete/{id}")
+    @GetMapping("remove/{id}")
     public String deletePurchaseOrderDetail(@PathVariable Integer id) {
-        PurchaseOrder purchaseOrder = purchaseOrderService.findById(id);
-        purchaseOrder.setPurchaseOrderStatus(PurchaseOrderStatus.NOT_PROCEED);
-        purchaseOrderService.persist(purchaseOrder);
-        return "redirect:/purchaseOrder/all";
+//        PurchaseOrder purchaseOrder = purchaseOrderService.findById(id);
+//        purchaseOrder.setPurchaseOrderStatus(PurchaseOrderStatus.NOT_PROCEED);
+//        purchaseOrderService.persist(purchaseOrder);
+//        return "redirect:/purchaseOrder/all";
+        purchaseOrderService.delete(id);
+        return "redirect:/purchaseOrder";
     }
 
     @GetMapping("/supplier/{id}")

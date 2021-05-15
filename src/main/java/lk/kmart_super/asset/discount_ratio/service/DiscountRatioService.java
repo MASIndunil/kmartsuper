@@ -25,6 +25,13 @@ private final DiscountRatioDao discountRatioDao;
             .collect(Collectors.toList());
     }
 
+    public List< DiscountRatio > findAllActive() {
+        return discountRatioDao.findAll().stream()
+                .filter(x -> LiveDead.ACTIVE.equals(x.getLiveDead()))
+                .filter(x -> DiscountRatioStatus.ACTIVE.equals(x.getDiscountRatioStatus()))
+                .collect(Collectors.toList());
+    }
+
     public DiscountRatio findById(Integer id) {
         return discountRatioDao.getOne(id);
     }

@@ -21,4 +21,6 @@ public interface PurchaseOrderDao extends JpaRepository< PurchaseOrder, Integer>
     PurchaseOrder findFirstByOrderByIdDesc();
 
   List< PurchaseOrder> findByCreatedAtIsBetween(LocalDateTime form, LocalDateTime to);
+
+  List< PurchaseOrder> findByUpdatedAtIsBetweenAndPurchaseOrderStatus(LocalDateTime form, LocalDateTime to, PurchaseOrderStatus purchaseOrderStatus);
 }

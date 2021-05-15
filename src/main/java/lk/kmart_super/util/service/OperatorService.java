@@ -27,4 +27,6 @@ public class OperatorService {
     public  BigDecimal pow(BigDecimal operand1, int operand2) {
         return operand1.pow(operand2).setScale(2, RoundingMode.CEILING);
     }
+
+
 }

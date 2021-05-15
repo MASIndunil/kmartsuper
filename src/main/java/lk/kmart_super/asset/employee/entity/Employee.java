@@ -9,10 +9,7 @@ import lk.kmart_super.asset.common_asset.model.enums.Title;
 import lk.kmart_super.asset.employee.entity.enums.Designation;
 import lk.kmart_super.asset.employee.entity.enums.EmployeeStatus;
 import lk.kmart_super.util.audit.AuditEntity;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -25,6 +22,7 @@ import java.time.LocalDate;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 @JsonFilter( "Employee" )
 public class Employee extends AuditEntity {
 

@@ -70,12 +70,12 @@ public  class SupplierController implements AbstractController< Supplier, Intege
 
             if (DBSupplier == null) {
                 //need to generate new one
-                supplier.setCode("SSCS"+makeAutoGenerateNumberService.numberAutoGen(null).toString());
+                supplier.setCode("SUP"+makeAutoGenerateNumberService.numberAutoGen(null).toString());
             } else {
 
                 //if there is supplier in db need to get that supplier's code and increase its value
-                String previousCode = DBSupplier.getCode().substring(4);
-                supplier.setCode("SSCS"+makeAutoGenerateNumberService.numberAutoGen(previousCode).toString());
+                String previousCode = DBSupplier.getCode().substring(3);
+                supplier.setCode("SUP"+makeAutoGenerateNumberService.numberAutoGen(previousCode).toString());
             }
             //send welcome message and email
             if (supplier.getEmail() != null) {

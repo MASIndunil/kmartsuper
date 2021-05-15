@@ -3,7 +3,6 @@ package lk.kmart_super;
 
 import lk.kmart_super.asset.common_asset.model.enums.CivilStatus;
 import lk.kmart_super.asset.common_asset.model.enums.Gender;
-import lk.kmart_super.asset.common_asset.model.enums.LiveDead;
 import lk.kmart_super.asset.common_asset.model.enums.Title;
 import lk.kmart_super.asset.employee.entity.Employee;
 import lk.kmart_super.asset.employee.entity.enums.Designation;
@@ -38,7 +37,7 @@ public class ApplicationCreateRestController {
     @GetMapping("/select/user")
     public String saveUser() {
         //roles list start
-        String[] roles = {"ADMIN","PROCUREMENT_MANAGER","CASHIER","MANAGER","HR_MANAGER","ACCOUNT_MANAGER"};
+        String[] roles = {"ADMIN","PROCUREMENT_MANAGER","CASHIER","MANAGER"};
         for (String s : roles) {
             Role role = new Role();
             role.setRoleName(s);
@@ -47,16 +46,19 @@ public class ApplicationCreateRestController {
 
 //Employee
         Employee employee = new Employee();
-        employee.setCode("11111111");
-        employee.setName("Admin User");
-        employee.setCallingName("Admin");
-        employee.setName("908670000V");
-        employee.setMobileOne("0750000000");
+        employee.setCode("EMP111111");
         employee.setTitle(Title.MR);
+        employee.setName("Prasanna Karunarathna");
+        employee.setCallingName("Prasanna");
+        employee.setNic("801142122V");
+        employee.setMobileOne("0714931346");
+        employee.setMobileTwo("0760870052");
+        employee.setLand("0332232699");
+        employee.setOfficeEmail("prasannajg@gmail.com");
         employee.setGender(Gender.MALE);
-        employee.setLiveDead(LiveDead.STOP);
+        employee.setAddress("409/A, Colombo Rd, Bandiyamulle, Gampaha");
         employee.setDesignation(Designation.ADMIN);
-        employee.setCivilStatus(CivilStatus.UNMARRIED);
+        employee.setCivilStatus(CivilStatus.MARRIED);
         employee.setEmployeeStatus(EmployeeStatus.WORKING);
         employee.setDateOfBirth(LocalDate.now().minusYears(18));
         employee.setDateOfAssignment(LocalDate.now());

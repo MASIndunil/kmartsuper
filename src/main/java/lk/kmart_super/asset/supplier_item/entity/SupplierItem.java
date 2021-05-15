@@ -1,7 +1,6 @@
 package lk.kmart_super.asset.supplier_item.entity;
 
 import com.fasterxml.jackson.annotation.JsonFilter;
-import lk.kmart_super.asset.common_asset.model.enums.LiveDead;
 import lk.kmart_super.asset.item.entity.Item;
 import lk.kmart_super.asset.supplier.entity.Supplier;
 import lk.kmart_super.asset.supplier_item.entity.enums.ItemSupplierStatus;
@@ -28,8 +27,6 @@ public class SupplierItem extends AuditEntity {
   @Enumerated( EnumType.STRING )
   private ItemSupplierStatus itemSupplierStatus;
 
-  @Enumerated( EnumType.STRING )
-  private LiveDead liveDead;
 
   @ManyToOne( cascade = CascadeType.MERGE )
   private Item item;

@@ -13,6 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class NameCount {
+    private String code;
     private String name;
     private String nameOne;
     private Integer count;

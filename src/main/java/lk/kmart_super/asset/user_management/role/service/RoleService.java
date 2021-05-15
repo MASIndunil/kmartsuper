@@ -24,14 +24,14 @@ public class RoleService implements AbstractService< Role, Integer > {
         this.roleDao = roleDao;
     }
 
-    @Cacheable
+
     public List< Role > findAll() {
         return roleDao.findAll().stream()
             .filter(x -> LiveDead.ACTIVE.equals(x.getLiveDead()))
             .collect(Collectors.toList());
     }
 
-    @Cacheable
+
     public Role findById(Integer id) {
         return roleDao.getOne(id);
     }
@@ -47,7 +47,7 @@ public class RoleService implements AbstractService< Role, Integer > {
         return roleDao.save(role);
     }
 
-    @CacheEvict( allEntries = true )
+
     public boolean delete(Integer id) {
         Role role =roleDao.getOne(id);
         role.setLiveDead(LiveDead.STOP);
@@ -55,7 +55,7 @@ public class RoleService implements AbstractService< Role, Integer > {
         return true;
     }
 
-    @Cacheable
+
     public List< Role > search(Role role) {
         ExampleMatcher matcher = ExampleMatcher
                 .matching()
@@ -65,7 +65,7 @@ public class RoleService implements AbstractService< Role, Integer > {
         return roleDao.findAll(roleExample);
     }
 
-    @Cacheable
+
     public Role findByRoleName(String roleName) {
         return roleDao.findByRoleName(roleName);
     }

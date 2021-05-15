@@ -81,12 +81,13 @@ public class UserController {
   //Send a searched employee to add working place
   @PostMapping( value = "/workingPlace" )
   public String addUserEmployeeDetails(@ModelAttribute( "employee" ) Employee employee, Model model) {
-
+    System.out.println(employee.toString() + "   employee");
     List< Employee > employees = employeeService.search(employee)
         .stream()
         .filter(userService::findByEmployee)
         .collect(Collectors.toList());
 
+    System.out.println("sss  "+ employees.size());
     if ( employees.size() == 1 ) {
       model.addAttribute("user", new User());
       model.addAttribute("employee", employees.get(0));
@@ -97,8 +98,8 @@ public class UserController {
     model.addAttribute("employee", new Employee());
     model.addAttribute("employeeDetailShow", false);
     model.addAttribute("employeeNotFoundShow", true);
-    model.addAttribute("employeeNotFound", "There is not employee in the system according to the provided details" +
-        " or that employee already be a user in the system" +
+    model.addAttribute("employeeNotFound", "There is no employee in the system according to the provided details" +
+        " or that employee may already be a user in the system" +
         " \n Could you please search again !!");
 
     return "user/addUser";
@@ -145,7 +146,7 @@ public class UserController {
   @GetMapping( value = "/remove/{id}" )
   public String removeUser(@PathVariable Integer id) {
     // user can not be deleted
-    //userService.delete(id);
+    userService.delete(id);
     return "redirect:/user";
   }
 

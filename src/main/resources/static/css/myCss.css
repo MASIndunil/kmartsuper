@@ -9,101 +9,88 @@
 
 /*login page start*/
 
-#loginPage {
-    background: url(../img/login.jpg)no-repeat center center fixed;
-    -webkit-background-size: cover;
+body{
+
+    background-image: url(../img/login-1.jpg);
+    -webkit-background-size:cover;
     -moz-background-size: cover;
     -o-background-size: cover;
-    background-size: cover;
-    background-attachment: fixed;
-    top: 50%;
-
-}
-.loginback{
-    margin-left: 750px;
-    width: 500px;
-    padding: 20px;
-    margin-top:150px;
-
-
 }
 
-#loginPage h1{
+.form-area{
 
-    padding: 5px;
-    margin-left:30px;
-    color: #20B2AA;
-    text-align: justify;
-    font-size:32px;
-}
-
-#loginPage  .form-label-group {
+    float: left;
+    width: 548px;
+    height:340px;
+    margin-top:136px;
     position: relative;
+    background-color: rgba(39, 109, 93, 0.6);
+    text-align: center;
+    padding:10px;
+    margin-left:498px;
+
 }
 
-#loginPage  .form-label-group input {
-    width: 100%;
-    padding: 0 20px;
-    font-size: 16px;
-    letter-spacing: 1px;
+.form-area{
+
+    margin-bottom: 1px;
+    color: white;
+
+}
+input{
+
+    border: none;
+    border-bottom: 1px solid #ffffff;
+    outline: none;
+    width: 75%;
+    height:35px;
+    margin-bottom: 15px;
+    background-color: transparent;
     color: #000000;
-    margin-bottom: 30px;
-    border: none;
-    border-bottom: 1px solid #20B2AA;
-    outline: none;
-    background: transparent;
+    font-size: 20px;
+    font-weight: bold;
+    padding-left:5px;
 }
 
-#loginPage .form-label-group label {
-    position: absolute;
-    top: 0;
-    left: 0;
-    padding: 0 20px;
-    font-size: 14px;
-    letter-spacing: 1px;
-    color: #20B2AA;
-    pointer-events: none;
-    transition: .5s;
+::placeholder {
+    color: rgb(9, 80, 86);
+    opacity: 1; /* Firefox */
 }
 
-#loginPage .form-label-group input:focus ~ label,
-#loginPage .form-label-group input:valid ~ label{
-    top: -18px;
-    left: 0;
-    color:#20B2AA;
-    font-size: 12px;
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: rgb(9, 80, 86);
 }
 
-#loginPage input [type="submit"] {
-    background: transparent;
-    border: none;
-    outline: none;
-    color: #f7b200;
-    padding: 10px 20px;
-    cursor: pointer;
-    border-radius: 5px;
-
+::-ms-input-placeholder { /* Microsoft Edge */
+    color: rgb(9, 80, 86);
 }
 
+.form-area p{
+    text-align: left;
+    color: #fff;
+    font-weight: bold;
+    font-size: 20px;
+    margin-left: 50px;
+}
 
 #btnLogin{
 
     display: inline-block;
     height: 40px;
-    width: 200px;
+    width: 300px;
     padding: 3px;
     line-height: 40px;
     overflow: hidden;
     position: relative;
     text-align: center;
-    font-size: 14px;
-    background-color: #1f7370;
+    font-size: 20px;
+    font-weight: bold;
+    background-color: rgb(9, 100, 86);
     border-radius: 250px;
     color: #fff;
-    font-weight: bold;
-    margin-top: 20px;
-    margin-right:100px;
+    margin-top: 6px;
     cursor: pointer;
+    margin-left: 15px;
     text-decoration: none;
     -webkit-transition:top 0.6s;
     -moz-transition:top 0.6s;
@@ -112,19 +99,12 @@
 
 
 #btnLogin:hover{
-    background-color: lightseagreen;
+    background-color: #30d0be;
+    color: #1b1e21;
 
 }
 
-.for-pass{
 
-    text-decoration: none;
-    display: block;
-    margin-top: 50px;
-    font-weight: bold;
-    font-size: 14px;
-    color: #fff;
-}
 /* login page-end */
 
 /*Nav Bar style start*/
@@ -134,7 +114,7 @@
  }
 #sidebar-container {
     min-height: 100vh;
-    background-color: #333;
+    background-color: #333333;
     padding: 0;
 }
 
@@ -198,16 +178,7 @@
 /* Nav Bar style end*/
 
 /*MainWindow Style - Start*/
-.mainbody{
-    background: url(../img/mainwindow.png)no-repeat center center fixed;
-    margin-left:230px;
-    margin-top:-650px;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-    background-attachment: fixed;
-}
+
 
 .card{
     max-width: 18rem;

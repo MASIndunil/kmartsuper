@@ -22,13 +22,13 @@ public class UserSessionLogService implements AbstractService<UserSessionLog, In
     }
 
     @Override
-    @Cacheable
+
     public List< UserSessionLog > findAll() {
         return userSessionLogDao.findAll();
     }
 
     @Override
-    @Cacheable
+
     public UserSessionLog findById(Integer id) {
         return userSessionLogDao.getOne(id);
     }
@@ -56,7 +56,7 @@ public class UserSessionLogService implements AbstractService<UserSessionLog, In
         return null;
     }
 
-    @Cacheable
+
     public UserSessionLog findByUserAndUserSessionLogStatus(User user, UserSessionLogStatus userSessionLogStatus) {
         return userSessionLogDao.findByUserAndUserSessionLogStatus(user, userSessionLogStatus);
     }

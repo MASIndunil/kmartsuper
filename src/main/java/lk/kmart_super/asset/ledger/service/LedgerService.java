@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -32,7 +33,6 @@ public class LedgerService implements AbstractService< Ledger, Integer> {
             .filter(x -> LiveDead.ACTIVE.equals(x.getLiveDead()))
             .collect(Collectors.toList());
     }
-
 
     public Ledger findById(Integer id) {
         return ledgerDao.getOne(id);
@@ -62,9 +62,17 @@ public class LedgerService implements AbstractService< Ledger, Integer> {
         return ledgerDao.findAll(ledgerExample);
     }
 
-    public List<Ledger> findByItem(Item item) {
-        return ledgerDao.findByItem(item);
-    }
+    /*public List<Ledger> rop() {
+        List <Ledger> liveLedgers = new ArrayList<>();
+        liveLedgers = ledgerDao.findAll().stream()
+                .filter(x -> LiveDead.ACTIVE.equals(x.getLiveDead()))
+                .collect(Collectors.toList());
+        for (Ledger x : liveLedgers){
+            Integer qty = 0;
+        }
+
+        //return ledgerDao.findByItem(item);
+    }*/
 
     public Ledger findByItemAndAndExpiredDateAndSellPrice(Item item, LocalDate eDate, BigDecimal sellPrice) {
     return ledgerDao.findByItemAndAndExpiredDateAndSellPrice( item, eDate, sellPrice);

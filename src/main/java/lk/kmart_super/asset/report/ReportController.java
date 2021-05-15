@@ -56,22 +56,22 @@ public class ReportController {
     //according to payment type -> invoice
     commonInvoices(invoices, model);
     //according to payment type -> payment
-    commonPayment(payments, model);
+    commonPayments(payments, model);
     // invoice count by cashier
-    commonPerCashier(invoices, model);
+    commonCashierInvoice(invoices, model);
     // payment count by account department
-    commonPerAccountUser(payments, model);
+    commonCashierPayment(payments, model);
     // item count according to item
     commonPerItem(startDateTime, endDateTime, model);
 
     model.addAttribute("message", message);
-    return "report/paymentAndIncomeReport";
+    return "report/managerReport";
   }
 
   @GetMapping( "/manager" )
-  public String getAllInvoiceAndPayment(Model model) {
+  public String summaryToday(Model model) {
     LocalDate localDate = LocalDate.now();
-    String message = "This report is belongs to " + localDate.toString();
+    String message = localDate.toString();
     LocalDateTime startDateTime = dateTimeAgeService.dateTimeToLocalDateStartInDay(localDate);
     LocalDateTime endDateTime = dateTimeAgeService.dateTimeToLocalDateEndInDay(localDate);
 
@@ -82,15 +82,15 @@ public class ReportController {
   }
 
   @PostMapping( "/manager/search" )
-  public String getAllInvoiceAndPaymentBetweenTwoDate(@ModelAttribute( "twoDate" ) TwoDate twoDate, Model model) {
-    String message =
-        "This report is between from " + twoDate.getStartDate().toString() + " to " + twoDate.getEndDate().toString();
+  public String summarySearch(@ModelAttribute( "twoDate" ) TwoDate twoDate, Model model) {
+    String message = twoDate.getStartDate().toString() + " to " + twoDate.getEndDate().toString();
     LocalDateTime startDateTime = dateTimeAgeService.dateTimeToLocalDateStartInDay(twoDate.getStartDate());
     LocalDateTime endDateTime = dateTimeAgeService.dateTimeToLocalDateEndInDay(twoDate.getEndDate());
     return commonAll(paymentService.findByCreatedAtIsBetween(startDateTime, endDateTime),
                      invoiceService.findByCreatedAtIsBetween(startDateTime, endDateTime), model, message,
                      startDateTime, endDateTime);
   }
+
   private void commonInvoices(List< Invoice > invoices, Model model) {
     // invoice count
     int invoiceTotalCount = invoices.size();
@@ -117,35 +117,33 @@ public class ReportController {
     });
     model.addAttribute("invoiceCashCount", invoiceCashCount);
     model.addAttribute("invoiceCashAmount", invoiceCashAmount.get());
-
+    model.addAttribute("cashierName", SecurityContextHolder.getContext().getAuthentication().getName());
   }
 
-  @GetMapping( "/cashier" )
-  public String getCashierToday(Model model) {
+  @GetMapping( "/allInvoice" )
+  public String invoiceToday(Model model) {
     LocalDate localDate = LocalDate.now();
-    String message = "This report is belongs to " + localDate.toString() + " and \n congratulation all are done by " +
-        "you.";
+    String message = localDate.toString();
     LocalDateTime startDateTime = dateTimeAgeService.dateTimeToLocalDateStartInDay(localDate);
     LocalDateTime endDateTime = dateTimeAgeService.dateTimeToLocalDateEndInDay(localDate);
     commonInvoices(invoiceService.findByCreatedAtIsBetweenAndCreatedBy(startDateTime, endDateTime,
                                                                        SecurityContextHolder.getContext().getAuthentication().getName()), model);
     model.addAttribute("message", message);
-    return "report/cashierReport";
+    return "report/invoiceReport";
   }
 
-  @PostMapping( "/cashier/search" )
-  public String getCashierSearch(@ModelAttribute( "twoDate" ) TwoDate twoDate, Model model) {
-    String message =
-        "This report is between from " + twoDate.getStartDate().toString() + " to " + twoDate.getEndDate().toString() + " and \n congratulation all are done by you.";
+  @PostMapping( "/allInvoice/search" )
+  public String invoiceSearch(@ModelAttribute( "twoDate" ) TwoDate twoDate, Model model) {
+    String message = twoDate.getStartDate().toString() + " to " + twoDate.getEndDate().toString();
     LocalDateTime startDateTime = dateTimeAgeService.dateTimeToLocalDateStartInDay(twoDate.getStartDate());
     LocalDateTime endDateTime = dateTimeAgeService.dateTimeToLocalDateEndInDay(twoDate.getEndDate());
     commonInvoices(invoiceService.findByCreatedAtIsBetweenAndCreatedBy(startDateTime, endDateTime,
                                                                        SecurityContextHolder.getContext().getAuthentication().getName()), model);
     model.addAttribute("message", message);
-    return "report/cashierReport";
+    return "report/invoiceReport";
   }
 
-  private void commonPayment(List< Payment > payments, Model model) {
+  private void commonPayments(List< Payment > payments, Model model) {
     // payment count
     int paymentTotalCount = payments.size();
     model.addAttribute("paymentTotalCount", paymentTotalCount);
@@ -170,127 +168,131 @@ public class ReportController {
       paymentCashAmount.set(addAmount);
     });
     model.addAttribute("paymentCashCount", paymentCashCount);
-    model.addAttribute("paymentCardAmount", paymentCashAmount.get());
-
+    model.addAttribute("paymentCashAmount", paymentCashAmount.get());
+    model.addAttribute("cashierName", SecurityContextHolder.getContext().getAuthentication().getName());
   }
 
-  @GetMapping( "/payment" )
-  public String getPaymentToday(Model model) {
+  @GetMapping( "/allPayment" )
+  public String paymentToday(Model model) {
     LocalDate localDate = LocalDate.now();
-    String message = "This report is belongs to " + localDate.toString() + " and \n congratulation all are done by " +
-        "you.";
+    String message = localDate.toString();
     LocalDateTime startDateTime = dateTimeAgeService.dateTimeToLocalDateStartInDay(localDate);
     LocalDateTime endDateTime = dateTimeAgeService.dateTimeToLocalDateEndInDay(localDate);
-    commonPayment(paymentService.findByCreatedAtIsBetweenAndCreatedBy(startDateTime, endDateTime,
+    commonPayments(paymentService.findByCreatedAtIsBetweenAndCreatedBy(startDateTime, endDateTime,
                                                                       SecurityContextHolder.getContext().getAuthentication().getName()), model);
     model.addAttribute("message", message);
     return "report/paymentReport";
   }
 
-  @PostMapping( "/payment/search" )
-  public String getPaymentSearch(@ModelAttribute( "twoDate" ) TwoDate twoDate, Model model) {
-    String message =
-        "This report is between from " + twoDate.getStartDate().toString() + " to " + twoDate.getEndDate().toString() + " and \n congratulation all are done by you.";
+  @PostMapping( "/allPayment/search" )
+  public String paymentSearch(@ModelAttribute( "twoDate" ) TwoDate twoDate, Model model) {
+    String message = twoDate.getStartDate().toString() + " to " + twoDate.getEndDate().toString();
     LocalDateTime startDateTime = dateTimeAgeService.dateTimeToLocalDateStartInDay(twoDate.getStartDate());
     LocalDateTime endDateTime = dateTimeAgeService.dateTimeToLocalDateEndInDay(twoDate.getEndDate());
-    commonPayment(paymentService.findByCreatedAtIsBetweenAndCreatedBy(startDateTime, endDateTime,
+    commonPayments(paymentService.findByCreatedAtIsBetweenAndCreatedBy(startDateTime, endDateTime,
                                                                       SecurityContextHolder.getContext().getAuthentication().getName()), model);
     model.addAttribute("message", message);
     return "report/paymentReport";
   }
 
-  private void commonPerCashier(List< Invoice > invoices, Model model) {
+  private void commonCashierInvoice(List< Invoice > invoices, Model model) {
     List< NameCount > invoiceByCashierAndTotalAmount = new ArrayList<>();
 //name, count, total
-    HashSet< String > createdByAll = new HashSet<>();
-    invoices.forEach(x -> createdByAll.add(x.getCreatedBy()));
+    HashSet< String > relatedCashiers = new HashSet<>();
+    invoices.forEach(x -> relatedCashiers.add(x.getCreatedBy()));
 
-    createdByAll.forEach(x -> {
+    relatedCashiers.forEach(x -> {
       NameCount nameCount = new NameCount();
       Employee employee = userService.findByUserName(x).getEmployee();
-      nameCount.setName(employee.getTitle().getTitle() + " " + employee.getName());
-      AtomicReference< BigDecimal > cashierTotalCount = new AtomicReference<>(BigDecimal.ZERO);
-      List< Invoice > cashierInvoice =
+      nameCount.setCode(employee.getCode());
+      nameCount.setName(employee.getTitle().getTitle() + " " + employee.getCallingName());
+      AtomicReference< BigDecimal > cashierTotalAmount = new AtomicReference<>(BigDecimal.ZERO);
+      List< Invoice > cashierInvoices =
           invoices.stream().filter(a -> a.getCreatedBy().equals(x)).collect(Collectors.toList());
-      nameCount.setCount(cashierInvoice.size());
-      cashierInvoice.forEach(a -> {
-        BigDecimal addAmount = operatorService.addition(cashierTotalCount.get(), a.getTotalAmount());
-        cashierTotalCount.set(addAmount);
+      nameCount.setCount(cashierInvoices.size());
+      cashierInvoices.forEach(a -> {
+        BigDecimal addAmount = operatorService.addition(cashierTotalAmount.get(), a.getTotalAmount());
+        cashierTotalAmount.set(addAmount);
       });
-      nameCount.setTotal(cashierTotalCount.get());
+      nameCount.setTotal(cashierTotalAmount.get());
       invoiceByCashierAndTotalAmount.add(nameCount);
     });
     model.addAttribute("invoiceByCashierAndTotalAmount", invoiceByCashierAndTotalAmount);
   }
 
-  @GetMapping( "/perCashier" )
-  public String perCashierToday(Model model) {
+  @GetMapping( "/perCashierInvoice" )
+  public String cashierInvoiceToday(Model model) {
     LocalDate localDate = LocalDate.now();
-    String message = "This report is belongs to " + localDate.toString();
+    String message = localDate.toString();
     LocalDateTime startDateTime = dateTimeAgeService.dateTimeToLocalDateStartInDay(localDate);
     LocalDateTime endDateTime = dateTimeAgeService.dateTimeToLocalDateEndInDay(localDate);
-    commonPerCashier(invoiceService.findByCreatedAtIsBetween(startDateTime, endDateTime), model);
+    commonCashierInvoice(invoiceService.findByCreatedAtIsBetween(startDateTime, endDateTime), model);
     model.addAttribute("message", message);
-    return "report/perCashierReport";
+    return "report/invoiceByCashierReport";
   }
 
-  @PostMapping( "/perCashier/search" )
-  public String getPerCashierSearch(@ModelAttribute( "twoDate" ) TwoDate twoDate, Model model) {
-    String message =
-        "This report is between from " + twoDate.getStartDate().toString() + " to " + twoDate.getEndDate().toString() + " and \n congratulation all are done by you.";
+  @PostMapping( "/perCashierInvoice/search" )
+  public String cashierInvoiceSearch(@ModelAttribute( "twoDate" ) TwoDate twoDate, Model model) {
+    String message = twoDate.getStartDate().toString() + " to " + twoDate.getEndDate().toString();
     LocalDateTime startDateTime = dateTimeAgeService.dateTimeToLocalDateStartInDay(twoDate.getStartDate());
     LocalDateTime endDateTime = dateTimeAgeService.dateTimeToLocalDateEndInDay(twoDate.getEndDate());
-    commonPerCashier(invoiceService.findByCreatedAtIsBetween(startDateTime, endDateTime), model);
+    commonCashierInvoice(invoiceService.findByCreatedAtIsBetween(startDateTime, endDateTime), model);
     model.addAttribute("message", message);
-    return "report/perCashierReport";
+    return "report/invoiceByCashierReport";
   }
 
-  private void commonPerAccountUser(List< Payment > payments, Model model) {
-    List< NameCount > paymentByUserAndTotalAmount = new ArrayList<>();
+  private void commonCashierPayment(List< Payment > payments, Model model) {
+    List< NameCount > paymentsByCashierAndTotalAmount = new ArrayList<>();
 //name, count, total
-    HashSet< String > createdByAllPayment = new HashSet<>();
-    payments.forEach(x -> createdByAllPayment.add(x.getCreatedBy()));
+    HashSet< String > relatedCashiers = new HashSet<>();
+    payments.forEach(x -> relatedCashiers.add(x.getCreatedBy()));
 
-    createdByAllPayment.forEach(x -> {
+    relatedCashiers.forEach(x -> {
       NameCount nameCount = new NameCount();
       Employee employee = userService.findByUserName(x).getEmployee();
-      nameCount.setName(employee.getTitle().getTitle() + " " + employee.getName());
-      List< BigDecimal > userTotalCount = new ArrayList<>();
-      List< Payment > paymentUser =
+      nameCount.setCode(employee.getCode());
+      nameCount.setName(employee.getTitle().getTitle() + " " + employee.getCallingName());
+      AtomicReference< BigDecimal > cashierTotalPayment = new AtomicReference<>(BigDecimal.ZERO);
+     // List< BigDecimal > userTotalCount = new ArrayList<>();
+      List< Payment > cashierPayments =
           payments.stream().filter(a -> a.getCreatedBy().equals(x)).collect(Collectors.toList());
-      nameCount.setCount(paymentUser.size());
-      paymentUser.forEach(a -> {
-        userTotalCount.add(a.getAmount());
+      nameCount.setCount(cashierPayments.size());
+      cashierPayments.forEach(a -> {
+        BigDecimal addAmount = operatorService.addition(cashierTotalPayment.get(), a.getAmount());
+        cashierTotalPayment.set(addAmount);
+        //userTotalCount.add(a.getAmount());
       });
-      nameCount.setTotal(userTotalCount.stream().reduce(BigDecimal.ZERO,BigDecimal::add));
-      paymentByUserAndTotalAmount.add(nameCount);
+      nameCount.setTotal(cashierTotalPayment.get());
+      //nameCount.setTotal(userTotalCount.stream().reduce(BigDecimal.ZERO,BigDecimal::add));
+      paymentsByCashierAndTotalAmount.add(nameCount);
     });
 
-    model.addAttribute("paymentByUserAndTotalAmount", paymentByUserAndTotalAmount);
+    model.addAttribute("paymentsByCashierAndTotalAmount", paymentsByCashierAndTotalAmount);
 
   }
 
-  @GetMapping( "/perAccount" )
-  public String perAccountToday(Model model) {
+  @GetMapping( "/perCashierPayment" )
+  public String cashierPaymentToday(Model model) {
     LocalDate localDate = LocalDate.now();
-    String message = "This report is belongs to " + localDate.toString();
+    String message = localDate.toString();
     LocalDateTime startDateTime = dateTimeAgeService.dateTimeToLocalDateStartInDay(localDate);
     LocalDateTime endDateTime = dateTimeAgeService.dateTimeToLocalDateEndInDay(localDate);
-    commonPerAccountUser(paymentService.findByCreatedAtIsBetween(startDateTime, endDateTime), model);
+    commonCashierPayment(paymentService.findByCreatedAtIsBetween(startDateTime, endDateTime), model);
     model.addAttribute("message", message);
-    return "report/perAccountReport";
+    return "report/paymentByCashierReport";
   }
 
-  @PostMapping( "/perAccount/search" )
-  public String getPerAccountSearch(@ModelAttribute( "twoDate" ) TwoDate twoDate, Model model) {
-    String message =
-        "This report is between from " + twoDate.getStartDate().toString() + " to " + twoDate.getEndDate().toString() + " and \n congratulation all are done by you.";
+  @PostMapping( "/perCashierPayment/search" )
+  public String cashierPaymentSearch(@ModelAttribute( "twoDate" ) TwoDate twoDate, Model model) {
+    String message = twoDate.getStartDate().toString() + " to " + twoDate.getEndDate().toString();
     LocalDateTime startDateTime = dateTimeAgeService.dateTimeToLocalDateStartInDay(twoDate.getStartDate());
     LocalDateTime endDateTime = dateTimeAgeService.dateTimeToLocalDateEndInDay(twoDate.getEndDate());
-    commonPerAccountUser(paymentService.findByCreatedAtIsBetween(startDateTime, endDateTime), model);
+    commonCashierPayment(paymentService.findByCreatedAtIsBetween(startDateTime, endDateTime), model);
     model.addAttribute("message", message);
-    return "report/perAccountReport";
+    return "report/paymentByCashierReport";
   }
+
+
 
   private void commonPerItem(LocalDateTime startDateTime, LocalDateTime endDateTime, Model model) {
     HashSet< Item > invoiceItems = new HashSet<>();
@@ -302,11 +304,23 @@ public class ReportController {
 
     invoiceItems.forEach(x -> {
       ParameterCount parameterCount = new ParameterCount();
+      parameterCount.setCode(x.getCode());
       parameterCount.setName(x.getName());
-      parameterCount.setCount((int) invoiceLedgers
+      List<InvoiceLedger> relatedILS = new ArrayList<>();
+      for (InvoiceLedger invoiceLedger:invoiceLedgers) {
+        if (invoiceLedger.getLedger().getItem().equals(x)){
+          relatedILS.add(invoiceLedger);
+        }
+      }
+      int totalQuantity = 0;
+      for (InvoiceLedger relatedIL:relatedILS) {
+        totalQuantity += Integer.parseInt(relatedIL.getQuantity());
+      }
+      parameterCount.setQuantity(totalQuantity);
+      /*parameterCount.setCount((int) invoiceLedgers
           .stream()
           .filter(a -> a.getLedger().getItem().equals(x))
-          .count());
+          .count());*/
       itemNameAndItemCount.add(parameterCount);
     });
     model.addAttribute("itemNameAndItemCount", itemNameAndItemCount);
@@ -316,7 +330,7 @@ public class ReportController {
   @GetMapping( "/perItem" )
   public String perItemToday(Model model) {
     LocalDate localDate = LocalDate.now();
-    String message = "This report is belongs to " + localDate.toString();
+    String message = localDate.toString();
     LocalDateTime startDateTime = dateTimeAgeService.dateTimeToLocalDateStartInDay(localDate);
     LocalDateTime endDateTime = dateTimeAgeService.dateTimeToLocalDateEndInDay(localDate);
     commonPerItem(startDateTime, endDateTime, model);
@@ -326,8 +340,7 @@ public class ReportController {
 
   @PostMapping( "/perItem/search" )
   public String getPerItemSearch(@ModelAttribute( "twoDate" ) TwoDate twoDate, Model model) {
-    String message =
-        "This report is between from " + twoDate.getStartDate().toString() + " to " + twoDate.getEndDate().toString() + " and \n congratulation all are done by you.";
+    String message = twoDate.getStartDate().toString() + " to " + twoDate.getEndDate().toString();
     LocalDateTime startDateTime = dateTimeAgeService.dateTimeToLocalDateStartInDay(twoDate.getStartDate());
     LocalDateTime endDateTime = dateTimeAgeService.dateTimeToLocalDateEndInDay(twoDate.getEndDate());
     commonPerItem(startDateTime, endDateTime, model);

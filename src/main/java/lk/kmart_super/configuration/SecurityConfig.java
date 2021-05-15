@@ -16,6 +16,7 @@ import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
+import org.springframework.security.web.header.writers.frameoptions.XFrameOptionsHeaderWriter;
 import org.springframework.security.web.session.HttpSessionEventPublisher;
 
 @Configuration
@@ -82,19 +83,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         authorizeRequests ->
             authorizeRequests
                 .antMatchers(ALL_PERMIT_URL).permitAll()
-                .antMatchers("/category/**").hasAnyRole("ADMIN","PROCUREMENT_MANAGER")
-                .antMatchers("/category/**").hasAnyRole("CASHIER","MANAGER")
-                .antMatchers("/discountRatio/**").hasAnyRole("PROCUREMENT_MANAGER","MANAGER")
-                .antMatchers("/employee/**").hasAnyRole("MANAGER","HR_MANAGER" ,"ADMIN")
-                .antMatchers("/goodReceivedNote/**").hasAnyRole("MANAGER","PROCUREMENT_MANAGER")
-                .antMatchers("/payment/**").hasAnyRole("MANAGER","ACCOUNT_MANAGER")
-                .antMatchers("/purchaseOrder/**").hasAnyRole("MANAGER","PROCUREMENT_MANAGER")
-                .antMatchers("/role/**").hasAnyRole("MANAGER","HR_MANAGER","ADMIN")
-                .antMatchers("/supplier/**").hasAnyRole("MANAGER","PROCUREMENT_MANAGER")
-                .antMatchers("/supplierItem/**").hasAnyRole("MANAGER","PROCUREMENT_MANAGER")
-                .antMatchers("/user/**").hasAnyRole("MANAGER","HR_MANAGER","ADMIN")
+                .antMatchers("/employee/**").hasAnyRole("ADMIN","MANAGER")
+                .antMatchers("/user/**").hasAnyRole("ADMIN","MANAGER")
+                .antMatchers("/role/**").hasAnyRole("ADMIN")
+                .antMatchers("/supplier/**").hasAnyRole("ADMIN","MANAGER","PROCUREMENT_MANAGER")
+                .antMatchers("/supplierItem/**").hasAnyRole("ADMIN","MANAGER","PROCUREMENT_MANAGER")
+                .antMatchers("/customer/**").hasAnyRole("ADMIN","MANAGER","CASHIER")
+                .antMatchers("/category/**").hasAnyRole("ADMIN","MANAGER")
+                .antMatchers("/item/**").hasAnyRole("ADMIN","MANAGER","CASHIER","PROCUREMENT_MANAGER")
+                .antMatchers("/ledger/**").hasAnyRole("ADMIN","MANAGER","CASHIER","PROCUREMENT_MANAGER")
+                .antMatchers("/purchaseOrder/**").hasAnyRole("ADMIN","MANAGER","CASHIER","PROCUREMENT_MANAGER")
+                .antMatchers("/goodReceivedNote/**").hasAnyRole("ADMIN","MANAGER","PROCUREMENT_MANAGER")
+                .antMatchers("/payment/**").hasAnyRole("ADMIN","MANAGER","CASHIER")
+                .antMatchers("/invoice/**").hasAnyRole("ADMIN","MANAGER","CASHIER")
+                .antMatchers("/discountRatio/**").hasAnyRole("ADMIN","MANAGER")
                 .anyRequest()
-                .authenticated())
+                .authenticated()
+    )
         // Login form
         .formLogin(
             formLogin ->
@@ -128,7 +133,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .sessionRegistry(sessionRegistry()))
         //Cross site disable
         .csrf(AbstractHttpConfigurer::disable)
-        .exceptionHandling();
+//        .exceptionHandling();
+            .exceptionHandling().and()
+            .headers()
+            .addHeaderWriter(new XFrameOptionsHeaderWriter(XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN));
 
   }
 }

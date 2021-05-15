@@ -1,6 +1,5 @@
 package lk.kmart_super.asset.customer.controller;
 
-
 import lk.kmart_super.asset.common_asset.model.enums.LiveDead;
 import lk.kmart_super.asset.common_asset.model.enums.Title;
 import lk.kmart_super.asset.customer.entity.Customer;
@@ -30,7 +29,7 @@ public  class CustomerController implements AbstractController<Customer, Integer
     private final TwilioMessageService twilioMessageService;
 
     @Autowired
-    public CustomerController(CustomerService customerService, MakeAutoGenerateNumberService makeAutoGenerateNumberService, EmailService emailService, TwilioMessageService twilioMessageService) {
+    public CustomerController(CustomerService customerService, MakeAutoGenerateNumberService makeAutoGenerateNumberService,EmailService emailService,TwilioMessageService twilioMessageService) {
         this.customerService = customerService;
         this.makeAutoGenerateNumberService = makeAutoGenerateNumberService;
         this.emailService = emailService;
@@ -78,19 +77,19 @@ public  class CustomerController implements AbstractController<Customer, Integer
             if (customerService.lastCustomer() == null) {
                 System.out.println("last customer null");
                 //need to generate new one
-                customer.setCode("SSCC"+makeAutoGenerateNumberService.numberAutoGen(null).toString());
+                customer.setCode("CUS"+makeAutoGenerateNumberService.numberAutoGen(null).toString());
             } else {
 
                 //if there is customer in db need to get that customer's code and increase its value
-                String previousCode = customerService.lastCustomer().getCode().substring(4);
-                customer.setCode("SSCC"+makeAutoGenerateNumberService.numberAutoGen(previousCode).toString());
+                String previousCode = customerService.lastCustomer().getCode().substring(3);
+                customer.setCode("CUS"+makeAutoGenerateNumberService.numberAutoGen(previousCode).toString());
             }
             //send welcome message and email
             if (customer.getEmail() != null) {
-                emailService.sendEmail(customer.getEmail(), "Welcome Message", "Welcome to Kmart Super...");
+                emailService.sendEmail(customer.getEmail(), "Welcome Message", "Welcome to KMart Super...");
             }
             if (customer.getMobile() != null) {
-            //    twilioMessageService.sendSMS(customer.getMobile(), "Welcome to Kmart Super");
+            //    twilioMessageService.sendSMS(customer.getMobile(), "Welcome to KMart Super");
             }
         }
 
@@ -103,7 +102,7 @@ public  class CustomerController implements AbstractController<Customer, Integer
         return commonThings(model, customerService.findById(id), false);
     }
 
-    @GetMapping("/delete/{id}")
+    @GetMapping("/remove/{id}")
     public String delete(@PathVariable Integer id, Model model) {
         customerService.delete(id);
         return "redirect:/customer";

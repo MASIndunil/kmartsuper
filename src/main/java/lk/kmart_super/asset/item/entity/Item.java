@@ -46,7 +46,7 @@ public class Item extends AuditEntity {
 
     @Enumerated(EnumType.STRING)
     private LiveDead liveDead;
-
+    
     @ManyToOne
     private Category category;
 

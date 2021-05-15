@@ -1,6 +1,7 @@
 package lk.kmart_super.configuration;
 
 
+import lk.kmart_super.asset.user_management.role.entity.Role;
 import lk.kmart_super.asset.user_management.user.entity.User;
 import lk.kmart_super.asset.user_management.user.service.UserService;
 import lk.kmart_super.asset.user_management.user_session_log.entity.UserSessionLog;
@@ -17,6 +18,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Component( "customAuthenticationSuccessHandler" )
 public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
@@ -53,6 +56,27 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 
         //since we have created our custom success handler, its up to us to where we will redirect the user after
         // successfully login
-        response.sendRedirect("/mainWindow");
+        String currentUserName = SecurityContextHolder.getContext().getAuthentication().getName();
+        User currentUser = userService.findByUserName(currentUserName);
+        List<Role> currentUserRoles = new ArrayList<>(currentUser.getRoles());
+        for (Role currentUserRole : currentUserRoles ) {
+            if (currentUserRole.getRoleName().equals("ADMIN")){
+              //  return "report/managerReport";
+                response.sendRedirect("/report/manager");
+            }
+            if (currentUserRole.getRoleName().equals("MANAGER")){
+              //  return "report/managerReport";
+                response.sendRedirect("/report/manager");
+            }
+            if (currentUserRole.getRoleName().equals("CASHIER")){
+              //  return "invoice/addInvoice";
+                response.sendRedirect("invoice/add");
+            }
+            if (currentUserRole.getRoleName().equals("PROCUREMENT_MANAGER")){
+              //  return "ledger/rop";
+                response.sendRedirect("item/rop");
+            }
+        }
+       // response.sendRedirect("/mainWindow");
     }
 }

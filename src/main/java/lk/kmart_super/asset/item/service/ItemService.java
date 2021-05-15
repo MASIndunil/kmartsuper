@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-@CacheConfig( cacheNames = "item" )
 public class ItemService implements AbstractService<Item, Integer> {
     private final ItemDao itemDao;
 

@@ -8,9 +8,9 @@ import lombok.Getter;
 public enum ItemStatus {
 
     AVAILABLE("Available"),
-    NOT_AVAILABLE("Not Available"),
+    UNAVAILABLE("Unavailable"),
     ORDERED("Ordered"),
-    JUSTENTERED("Just Entered");
+    NEW("New");
 
     private final String itemStatus;
 }

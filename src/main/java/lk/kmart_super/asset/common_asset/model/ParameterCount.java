@@ -10,6 +10,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ParameterCount {
+    private String code;
     private String name;
-    private Integer count;
+    private Integer quantity;
 }

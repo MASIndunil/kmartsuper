@@ -2,6 +2,7 @@ package lk.kmart_super.asset.good_received_note.controller;
 
 import lk.kmart_super.asset.common_asset.model.enums.LiveDead;
 import lk.kmart_super.asset.good_received_note.entity.GoodReceivedNote;
+import lk.kmart_super.asset.good_received_note.entity.enums.GRNComment;
 import lk.kmart_super.asset.good_received_note.entity.enums.GoodReceivedNoteState;
 import lk.kmart_super.asset.good_received_note.service.GoodReceivedNoteService;
 import lk.kmart_super.asset.ledger.entity.Ledger;
@@ -18,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/goodReceivedNote")
@@ -88,6 +90,30 @@ public class GoodReceivedNoteController {
         purchaseOrderService.persist(purchaseOrder);
         goodReceivedNoteService.persist(goodReceivedNote);
         return "redirect:/goodReceivedNote";
+    }
+
+    @GetMapping( "/comment" )
+    public String setComment(Model model) {
+        List<GoodReceivedNote> oldGRNs = new ArrayList<>(goodReceivedNoteService.findAll());
+        for (GoodReceivedNote singleGRN:oldGRNs) {
+            int expectedDay = singleGRN.getCreatedAt().getDayOfYear()+
+                                Integer.parseInt(singleGRN.getPurchaseOrder().getPurchaseOrderPriority().getPurchaseOrderPriority());
+            int receivedDay = singleGRN.getUpdatedAt().getDayOfYear();
+
+            if (expectedDay == receivedDay){
+                singleGRN.setGrnComment(GRNComment.ONTIME);
+            }
+            if (expectedDay > receivedDay){
+                singleGRN.setGrnComment(GRNComment.EARLIER);
+            }
+            if (expectedDay < receivedDay){
+                singleGRN.setGrnComment(GRNComment.LATE);
+            }
+        }
+        model.addAttribute("newGRNs", goodReceivedNoteService.findAll());
+
+        return "goodReceivedNote/grnALL";
+
     }
 
 }

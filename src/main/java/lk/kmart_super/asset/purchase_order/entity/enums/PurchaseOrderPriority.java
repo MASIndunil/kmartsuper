@@ -6,8 +6,8 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum PurchaseOrderPriority {
-    HIGH("Immediate"),
-    MEDIUM("Medium"),
-    NORMAL("Normal");
+    HIGH("3"),
+    MEDIUM("5"),
+    NORMAL("7");
     private final String purchaseOrderPriority;
 }

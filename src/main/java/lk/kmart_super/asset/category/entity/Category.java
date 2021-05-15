@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFilter;
 import lk.kmart_super.asset.common_asset.model.enums.LiveDead;
 import lk.kmart_super.asset.item.entity.Item;
 import lk.kmart_super.asset.item.entity.enums.MainCategory;
+import lk.kmart_super.util.audit.AuditEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,7 +20,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonFilter( "Category" )
-public class Category {
+public class Category{
 
     @Id
     @GeneratedValue( strategy = GenerationType.IDENTITY )
